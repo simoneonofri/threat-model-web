@@ -140,3 +140,7 @@ The diagram illustrates the data flow and interactions between core browser comp
   }
 }
 </pre>
+
+# Acknowledgment # {#acknowledgment}
+
+Several individuals contributed to the document. The editors especially thanks Anna Weine.
