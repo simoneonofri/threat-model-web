@@ -50,11 +50,13 @@ This system model is a high-level layered diagram of the security-relevant inter
 </figure>
 
 ### Web Layer
+
   <div class="issue">
     This section is to be written.
   </div>
 
 ### Network Layer
+
   <div class="issue">
     This section is to be written.
   </div>
@@ -178,7 +180,7 @@ In [Figure 1](#threat-model), the diagram refers to this process as *"GPU / Comp
     </tr>
     <tr>
       <td>B1.3</td>
-      <td>Web-Content Execution Processe Boundary</td>
+      <td>Web-Content Execution Process Boundary</td>
       <td>Threat Boundary</td>
       <td>Separates processes responsible for executing web content.</td>
     </tr>
@@ -389,6 +391,7 @@ In [Figure 1](#threat-model), the diagram refers to this process as *"GPU / Comp
 The notation follows the W3C Threat Modeling Guide: **E** for external entities, **P** for processes, **F** for flows, **S** for data stores, **C** for threat containers, and **B** for threat boundaries [[threat-modeling-guide]].
 
 ### Operating-system Layer
+
   <div class="issue">
     This section is to be written.
   </div>
