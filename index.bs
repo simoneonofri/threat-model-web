@@ -570,7 +570,7 @@ This abstraction is useful because it makes visible several concepts:
 
 ## Web Security Model
 
-### 1\. Objective and Scope
+### Objective and Scope
 
 * This document defines a **baseline security model for the Web Platform as a whole**, not a feature-specific review of one API, because later API reviews need a stable platform baseline against which deltas can be evaluated rather than a repeated re-definition of the platform’s core invariants. ([W3C](https://www.w3.org/TR/security-privacy-questionnaire/))
 
@@ -582,9 +582,9 @@ This abstraction is useful because it makes visible several concepts:
 
 * In general, the baseline question is not “is this API secure in isolation?” but “what invariants already exist in the Web Platform, and does a later API preserve, weaken, or extend them?”; consequently, origin-based separation, browser mediation, transport security, and implementation hardening appear here as platform assumptions rather than API-specific add-ons. ([RFC Editor](https://www.rfc-editor.org/rfc/rfc6454.html))
 
-### 2\. Source Corpus
+### Source Corpus
 
-#### 2.1 W3C
+#### W3C
 
 * The W3C corpus is used here for **security/privacy intake**, **secure-context gating**, **permissions**, **mixed-content handling**, **trusted UI guidance**, **privacy/fingerprinting review**, and **capability-bearing API security constraints**. ([W3C](https://www.w3.org/TR/security-privacy-questionnaire/))
 
@@ -606,7 +606,7 @@ This abstraction is useful because it makes visible several concepts:
 
 * [TAG Ethical Web Principles / Design Principles](https://www.w3.org/TR/design-principles/) — secure-context and privacy-preserving design expectations, including not exposing private browsing state. ([W3C](https://www.w3.org/TR/design-principles/))
 
-#### 2.2 WHATWG
+#### WHATWG
 
 * The WHATWG corpus is used here for the **core platform object model**: origins, documents, browsing contexts, agent clusters, messaging, script loading, module loading, fetch modes, and storage keying hooks used by web content and user agents. ([html.spec.whatwg.org](https://html.spec.whatwg.org/))
 
@@ -616,7 +616,7 @@ This abstraction is useful because it makes visible several concepts:
 
 * [Storage Standard](https://storage.spec.whatwg.org/) — storage buckets and storage-key-based scoping primitives. ([storage.spec.whatwg.org](https://storage.spec.whatwg.org/))
 
-#### 2.3 IETF
+#### IETF
 
 * The IETF corpus is used here for **origin as authority scope**, **authenticated/encrypted transport**, **HSTS**, and **privacy-analysis discipline** for network-visible information. ([RFC Editor](https://www.rfc-editor.org/rfc/rfc6454.html))
 
@@ -628,13 +628,13 @@ This abstraction is useful because it makes visible several concepts:
 
 * [RFC 6973: Privacy Considerations for Internet Protocols](https://www.rfc-editor.org/rfc/rfc6973) — privacy-analysis lens for correlation and observability. ([RFC Editor](https://www.rfc-editor.org/rfc/rfc6973.html))
 
-#### 2.4 Ecma International
+#### Ecma International
 
 * Ecma International is used here for the **execution substrate view of ECMAScript**, especially the fact that ECMAScript is a hosted language, not a self-sufficient ambient-capability system, and for execution-context / agent / realm concepts that the browser embeds into the platform security model. ([tc39.es](https://tc39.es/ecma262/multipage/overview.html))
 
 * [ECMA-262 / ECMAScript Language Specification](https://tc39.es/ecma262/) — agents, execution contexts, realms, environment records, and dynamic code compilation hooks such as `eval` and `HostEnsureCanCompileStrings`. ([tc39.es](https://tc39.es/ecma262/multipage/overview.html))
 
-#### 2.5 Official WebAssembly Specifications and Documentation
+#### Official WebAssembly Specifications and Documentation
 
 * Official WebAssembly sources are used here for **validation**, **execution**, **embedding**, and the critical security point that WebAssembly in the browser does not gain ambient host privilege merely by being binary code. ([webassembly.github.io](https://webassembly.github.io/spec/core/))
 
@@ -642,7 +642,7 @@ This abstraction is useful because it makes visible several concepts:
 
 * [WebAssembly JavaScript API](https://www.w3.org/TR/wasm-js-api-2/) — browser/ECMAScript embedding rules and per-agent store model. ([webassembly.github.io](https://webassembly.github.io/spec/js-api/))
 
-#### 2.6 Official WebGPU / WGSL Sources
+#### Official WebGPU / WGSL Sources
 
 * Official WebGPU sources are used here for the **GPU capability model**, **secure-context requirement**, **worker exposure**, **validation expectations**, and **fingerprinting / multi-process security implications**. ([gpuweb.github.io](https://gpuweb.github.io/gpuweb/))
 
@@ -650,19 +650,19 @@ This abstraction is useful because it makes visible several concepts:
 
 * Officially associated WebGPU security/privacy explainer material — browser multi-process and GPU-process security considerations. ([gpuweb.github.io](https://gpuweb.github.io/gpuweb/explainer/))
 
-#### 2.7 Official WebXR Sources
+#### Official WebXR Sources
 
 * Official WebXR sources are used here for the **XR capability model**, **sensor/spatial exposure risks**, **secure-context requirement**, **transient activation**, **consent**, and **permissions-policy integration**. ([immersive-web.github.io](https://immersive-web.github.io/webxr/))
 
 * [WebXR Device API](https://www.w3.org/TR/webxr/) — immersive and inline XR access, with explicit security, privacy, and comfort considerations. ([immersive-web.github.io](https://immersive-web.github.io/webxr/))
 
-#### 2.8 Official Web Machine Learning / WebNN Sources
+#### Official Web Machine Learning / WebNN Sources
 
 * Official WebNN sources are used here for the **ML capability model**, **secure-context requirement**, **cross-origin default restrictions via Permissions Policy**, **GPU integration**, and the privacy claim that on-device inference can reduce cloud disclosure while still creating local capability and fingerprinting considerations. ([W3C](https://www.w3.org/TR/webnn/))
 
 * [WebNN API](https://www.w3.org/TR/webnn/) — hardware-agnostic abstraction for on-device neural-network inference. ([W3C](https://www.w3.org/TR/webnn/))
 
-#### 2.9 Browser Vendor Documentation
+#### Browser Vendor Documentation
 
 * Vendor documentation is used only where the standards do not fully specify **process architecture**, **sandboxing**, **site isolation**, **partitioning deployment**, **extension privilege design**, and **GPU/runtime hardening realities**. ([chromium.org](https://www.chromium.org/developers/design-documents/site-isolation/))
 
@@ -676,7 +676,7 @@ This abstraction is useful because it makes visible several concepts:
 
 * Chrome and MDN extension documentation — extension privilege and browser-behavior modification boundaries. ([Chrome for Developers](https://developer.chrome.com/docs/extensions/mv2/architecture-overview))
 
-### 3\. Method
+### Method
 
 * This analysis follows a five-step method: **define the Web Platform as the object of analysis; use the W3C Security & Privacy Questionnaire as intake; identify actors, boundaries, assets, entry points, and dependencies; organize threats by target / implementation / external / dependency categories; and synthesize the resulting baseline Web Security Model for later API reuse**. ([W3C](https://www.w3.org/TR/security-privacy-questionnaire/))
 
@@ -686,7 +686,7 @@ This abstraction is useful because it makes visible several concepts:
 
 * Consequently, this document does not treat every browser hardening measure as a universal platform guarantee, and it does not treat every API-specific permission or UI flow as part of the baseline unless the sources support that conclusion across the platform model. ([W3C](https://www.w3.org/TR/permissions/))
 
-### 4\. The Web Platform as the System Under Analysis
+### The Web Platform as the System Under Analysis
 
 * The **Web Platform** is the environment in which user agents fetch, parse, instantiate, execute, render, store, mediate, and communicate web content using interoperable standards such as HTML, Fetch, ECMAScript, WebAssembly, and higher-level API specifications. ([html.spec.whatwg.org](https://html.spec.whatwg.org/))
 
@@ -700,7 +700,7 @@ This abstraction is useful because it makes visible several concepts:
 
 * Therefore, this baseline model exists so that later API analysis can ask a narrower question: **what changes once a specific API is introduced into an already origin-based, browser-mediated, transport-aware, implementation-hardened platform?** ([RFC Editor](https://www.rfc-editor.org/rfc/rfc6454.html))
 
-### 5\. Layered Model: Standards, Implementations, Browsers
+### Layered Model: Standards, Implementations, Browsers
 
 * At this layer, the relevant distinction is between **rules**, **realizations**, and **products**, because security analysis becomes unreliable if those categories are collapsed. ([html.spec.whatwg.org](https://html.spec.whatwg.org/))
 
@@ -724,7 +724,7 @@ This abstraction is useful because it makes visible several concepts:
   * This layer can strengthen or weaken practical security through defaults, indicators, and policy surfaces without changing the normative meaning of origin, fetch, or ECMAScript execution. ([W3C](https://www.w3.org/TR/wsc-ui/))
   * By contrast, browser-product behavior is not automatically platform law; it is a deployment reality that later API reviewers must distinguish from cross-browser normative requirements. ([chromium.org](https://www.chromium.org/developers/design-documents/site-isolation/))
 
-### 6\. Stakeholders, Actors, and Trust Boundaries
+### Stakeholders, Actors, and Trust Boundaries
 
 * This section focuses on who the platform serves, who can act within it, and where trust must stop by default, because the Web security model is fundamentally a mediation model among mutually distrusting principals rather than a single-trust-domain architecture. ([RFC Editor](https://www.rfc-editor.org/rfc/rfc6454.html))
 
@@ -763,7 +763,7 @@ This abstraction is useful because it makes visible several concepts:
   * **Secure vs insecure transport** — transport security creates a boundary against passive and active network attack, but only when the browser can authenticate and encrypt the channel. ([RFC Editor](https://www.rfc-editor.org/info/rfc8446))
   * **Trusted UI vs web-controlled UI** — phishing resistance depends on keeping security chrome visible and not confusing user trust decisions with page-controlled presentation. ([W3C](https://www.w3.org/TR/wsc-ui/))
 
-### 7\. Security & Privacy Questionnaire Extraction
+### Security & Privacy Questionnaire Extraction
 
 * This section applies the W3C Security & Privacy Questionnaire to the **Web Platform as a platform**, not to one candidate API, because the questionnaire’s prompts map cleanly onto baseline concerns about state, cross-origin communication, device access, user mediation, and fingerprinting. ([W3C](https://www.w3.org/TR/security-privacy-questionnaire/))
 
@@ -934,7 +934,7 @@ This abstraction is useful because it makes visible several concepts:
   </tbody>
 </table>
 
-### 8\. Platform Assets, Entry Points, and Dependencies
+### Platform Assets, Entry Points, and Dependencies
 
 * This section focuses on what the platform must protect, where attacker-controlled input enters, and which lower-layer dependencies can defeat otherwise-correct web isolation. ([RFC Editor](https://www.rfc-editor.org/rfc/rfc6454.html))
 
@@ -1087,11 +1087,11 @@ This abstraction is useful because it makes visible several concepts:
 
 * The platform depends on **user-facing product choices** such as indicators, defaults, extension policy, and partitioning deployment for practical resistance to phishing, tracking, and confused delegation. ([W3C](https://www.w3.org/TR/wsc-ui/))
 
-### 9\. Threat Model
+### Threat Model
 
 * This threat model is organized as **target threats**, **implementation threats**, **external threats**, and **dependency threats**, because the platform is attacked both through web-content semantics and through the browser stack that realizes them. ([RFC Editor](https://www.rfc-editor.org/rfc/rfc6454.html))
 
-#### 9.1 Target Threats
+#### Target Threats
 
 <table>
   <thead>
@@ -1144,7 +1144,7 @@ This abstraction is useful because it makes visible several concepts:
   </tbody>
 </table>
 
-#### 9.2 Implementation Threats
+#### Implementation Threats
 
 <table>
   <thead>
@@ -1197,7 +1197,7 @@ This abstraction is useful because it makes visible several concepts:
   </tbody>
 </table>
 
-#### 9.3 External Threats
+#### External Threats
 
 <table>
   <thead>
@@ -1250,7 +1250,7 @@ This abstraction is useful because it makes visible several concepts:
   </tbody>
 </table>
 
-#### 9.4 Dependency Threats
+#### Dependency Threats
 
 <table>
   <thead>
@@ -1303,11 +1303,11 @@ This abstraction is useful because it makes visible several concepts:
   </tbody>
 </table>
 
-### 10\. Web Security Model
+### Web Security Model
 
 * This section synthesizes the platform model itself. In general, the security consequence is not only that the browser blocks some attacks, but that the platform is structured around a small number of stable units, assumptions, and invariants from which later reviews should begin. ([RFC Editor](https://www.rfc-editor.org/rfc/rfc6454.html))
 
-#### 10.1 Core Security Units
+#### Core Security Units
 
 * **Origin** is the core authority and isolation unit of the Web Platform, because RFC 6454 defines it as the scope of privilege and user agents isolate different origins to prevent interference. ([RFC Editor](https://www.rfc-editor.org/rfc/rfc6454.html))
 
@@ -1329,7 +1329,7 @@ This abstraction is useful because it makes visible several concepts:
 
 * **Process / renderer isolation where supported** is a defense-in-depth unit in implementations, especially under compromised-renderer assumptions. ([chromium.org](https://www.chromium.org/developers/design-documents/site-isolation/))
 
-#### 10.2 Core Assumptions
+#### Core Assumptions
 
 * The network is **untrusted by default** unless the browser can authenticate and encrypt the channel. ([RFC Editor](https://www.rfc-editor.org/info/rfc8446))
 
@@ -1349,7 +1349,7 @@ This abstraction is useful because it makes visible several concepts:
 
 * Implementation bugs, compromised renderers, and shared-subsystem failures are **realistic threats**, which is why modern browsers deploy sandboxing and site isolation. ([chromium.org](https://www.chromium.org/developers/design-documents/site-isolation/))
 
-#### 10.3 Core Invariants
+#### Core Invariants
 
 * **Origin-based isolation** is the foundational invariant of the platform. ([RFC Editor](https://www.rfc-editor.org/rfc/rfc6454.html))
 
@@ -1377,7 +1377,7 @@ This abstraction is useful because it makes visible several concepts:
 
 * **Defense in depth across layers** is required because standards invariants, implementation hardening, and product mediation each cover different failure modes. ([chromium.org](https://www.chromium.org/developers/design-documents/site-isolation/))
 
-#### 10.4 Network-Level Security Model
+#### Network-Level Security Model
 
 * This section focuses on what the browser can and cannot guarantee once content leaves the local rendering boundary and depends on remote transport. ([RFC Editor](https://www.rfc-editor.org/info/rfc8446))
 
@@ -1393,7 +1393,7 @@ This abstraction is useful because it makes visible several concepts:
 
 * What the browser cannot guarantee is equally important: it cannot make an untrustworthy remote service honest, it cannot prevent disclosure by the endpoint itself, and it cannot fully eliminate all network-observable correlation or metadata risks merely through transport security. ([RFC Editor](https://www.rfc-editor.org/rfc/rfc6973.html))
 
-#### 10.5 User-Agent / Browser-Level Security Model
+#### User-Agent / Browser-Level Security Model
 
 * This section focuses on the browser as the **policy-enforcement and trust-presentation point** of the platform. ([W3C](https://www.w3.org/TR/wsc-ui/))
 
@@ -1413,7 +1413,7 @@ This abstraction is useful because it makes visible several concepts:
 
 * GPU, XR, and ML integrations fit into browser enforcement as brokered or mediated paths toward hardware acceleration, sensors, and device-specific runtimes, which is why secure contexts, consent, permissions policy, or GPU-process validation appear in their security model. ([gpuweb.github.io](https://gpuweb.github.io/gpuweb/explainer/))
 
-#### 10.6 Web-Content / Execution-Level Security Model
+#### Web-Content / Execution-Level Security Model
 
 * This section focuses on how arbitrary content is loaded, embedded, executed, and constrained once the browser admits it into the platform. ([html.spec.whatwg.org](https://html.spec.whatwg.org/))
 
@@ -1441,7 +1441,7 @@ This abstraction is useful because it makes visible several concepts:
 
 * WebNN’s role is to expose on-device ML inference through secure-context, permissions-policy-restricted APIs that can integrate with WebGPU-backed contexts while keeping data local to the browser when feasible. ([W3C](https://www.w3.org/TR/webnn/))
 
-#### 10.7 Using this Web Security Model as a Baseline for Other Web APIs
+#### Using this Web Security Model as a Baseline for Other Web APIs
 
 * Later API analysis should first ask whether the API **weakens a baseline invariant**, such as origin separation, browser mediation, secure-context expectations, or trusted-UI distinctions. ([RFC Editor](https://www.rfc-editor.org/rfc/rfc6454.html))
 
@@ -1463,9 +1463,9 @@ This abstraction is useful because it makes visible several concepts:
 
 * Later API analysis should ask whether the API **introduces GPU/XR/ML-like capability assumptions**, meaning browser-mediated access to hardware, environmental, or inference-relevant subsystems. ([gpuweb.github.io](https://gpuweb.github.io/gpuweb/explainer/))
 
-### 11\. Diagrams
+### Diagrams
 
-#### 11.1 Network-Level Security Model Diagram
+#### Network-Level Security Model Diagram
 
 ```
 flowchart LR
@@ -1513,7 +1513,7 @@ flowchart LR
 
 * The main attacker opportunities are passive observation, active tampering/downgrade, mixed-content re-entry, and user deception if browser trust signals are confused with web content. ([W3C](https://www.w3.org/TR/mixed-content/))
 
-#### 11.2 User-Agent / Browser-Level Security Model Diagram
+#### User-Agent / Browser-Level Security Model Diagram
 
 ```
 flowchart TB
@@ -1567,7 +1567,7 @@ flowchart TB
 
 * The main attacker opportunities are engine bugs, renderer compromise, extension interference, and driver-facing or device-facing integration flaws. ([chromium.org](https://www.chromium.org/developers/design-documents/site-isolation/))
 
-#### 11.3 Web-Content / Execution-Level Security Model Diagram
+#### Web-Content / Execution-Level Security Model Diagram
 
 ```
 flowchart LR
@@ -1606,7 +1606,7 @@ flowchart LR
 
 * The main attacker opportunities are cross-origin messaging mistakes, origin compromise via script execution, overbroad capability access, and state/correlation leakage through storage or hardware capability exposure. ([tc39.es](https://tc39.es/ecma262/multipage/global-object.html))
 
-### 12\. Mitigations and Responses
+### Mitigations and Responses
 
 * **Transport mitigations**:
 
@@ -1652,7 +1652,7 @@ flowchart LR
 
   * Constrain extension capabilities and reduce sensitive interception where possible through product architecture and safer extension APIs. ([Chrome for Developers](https://developer.chrome.com/docs/extensions/develop/migrate/what-is-mv3))
 
-### 13\. Security Considerations
+### Security Considerations
 
 * This baseline model shows that the Web Platform’s security does not rest on one mechanism, but on the interaction of **origin-based separation**, **browser mediation**, **transport protection**, and **implementation confinement**. ([RFC Editor](https://www.rfc-editor.org/rfc/rfc6454.html))
 
@@ -1662,7 +1662,7 @@ flowchart LR
 
 * Security review should therefore ask not only whether the API is permission-gated, but also whether its output becomes a new cross-origin secret, a new fingerprinting vector, or a new pivot into less-confined implementation layers. ([W3C](https://www.w3.org/TR/permissions/))
 
-### 14\. Privacy Considerations
+### Privacy Considerations
 
 * The Web security model and the Web privacy model are related but not identical, because an origin can be correctly isolated from other origins while still learning too much about its own users, devices, or contexts. ([RFC Editor](https://www.rfc-editor.org/rfc/rfc6973.html))
 
@@ -1676,7 +1676,7 @@ flowchart LR
 
 * Consequently, later API reviews should ask not only “what data is read?” but also “what identifiers, capability signals, or contextual correlations are created by exposing this feature inside the browser?” ([W3C](https://www.w3.org/TR/fingerprinting-guidance/))
 
-### 15\. Implementation Considerations
+### Implementation Considerations
 
 * Specifications define the interoperable model, but implementations decide how to realize it safely under memory-safety risk, hostile-input risk, and compromised-renderer assumptions. ([html.spec.whatwg.org](https://html.spec.whatwg.org/))
 
@@ -1686,7 +1686,7 @@ flowchart LR
 
 * Consequently, implementation reviews should explicitly state which guarantees are normative platform rules and which are implementation hardening choices that can vary by engine or product. ([chromium.org](https://www.chromium.org/developers/design-documents/site-isolation/))
 
-### 16\. Browser Product Considerations
+### Browser Product Considerations
 
 * The browser-product layer matters because trusted UI, prompts, defaults, private browsing modes, anti-tracking controls, extension architecture, and update policy shape the practical safety of the platform for real users. ([W3C](https://www.w3.org/TR/wsc-ui/))
 
@@ -1696,7 +1696,7 @@ flowchart LR
 
 * Therefore, later API-specific reviews should identify where safety depends on browser-product UX or policy rather than on interoperable technical constraints alone. ([W3C](https://www.w3.org/TR/permissions/))
 
-### 17\. Open Issues and Gaps
+### Open Issues and Gaps
 
 * A single standards-defined process model for browser isolation is intentionally absent; implementations use different process, sandbox, and site-isolation strategies, so part of the effective Web security model remains implementation-defined. ([html.spec.whatwg.org](https://html.spec.whatwg.org/multipage/webappapis.html))
 
@@ -1708,7 +1708,7 @@ flowchart LR
 
 * A stable, cross-browser baseline rule for **local/private-network reachability** is not established by this document's source corpus, so later reviews should treat this as an area requiring fresh source validation rather than inherited baseline certainty.
 
-### 18\. Assumptions, Dependencies, and Out-of-Scope Items
+### Assumptions, Dependencies, and Out-of-Scope Items
 
 * **Assumptions**:
 
@@ -1728,7 +1728,7 @@ flowchart LR
   * Full server-side application security, business-logic flaws, and non-web native application models are outside this baseline except where they directly affect browser/platform trust boundaries. ([html.spec.whatwg.org](https://html.spec.whatwg.org/print.pdf))
   * Detailed per-API threat enumeration is outside this baseline except where needed to illustrate the reusable platform model. ([W3C](https://www.w3.org/TR/security-privacy-questionnaire/))
 
-### 19\. API Reuse Guidance
+### API Reuse Guidance
 
 * This section is the practical bridge from the baseline model to later API reviews: the question is not “start from zero,” but “what delta does the API introduce against the existing platform model?” ([W3C](https://www.w3.org/TR/security-privacy-questionnaire/))
 
@@ -1793,7 +1793,7 @@ flowchart LR
   </tbody>
 </table>
 
-### 20\. References
+### References
 
 #### W3C
 
