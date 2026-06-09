@@ -143,11 +143,11 @@ Rather than treating the browser as a single component, as in the Minimalist Web
 
 These two concerns are related but not identical. A content process is isolated not only because web content is untrusted, but also because the browser must preserve same-origin isolation and the separation between the browser and the OS/platform. In practice, those are distinct trust boundaries, even when an implementation uses the same process architecture to support both.
 
-### Architecture
+#### Architecture
 
 Across Chromium, WebKit, and Firefox, the implementation details differ. Even so, a common structure emerges.
 
-#### Privileged browser process
+##### Privileged browser process
 
 Modern browsers include a high-privilege control component responsible for browser UI, navigation control, process management, policy enforcement, permission mediation, and access brokering for sensitive local resources. Chromium refers to this as the **Browser process**. WebKit refers to the **UI process**. Firefox refers to the **Parent process** [[chromium-multiprocess-architecture]] [[webkit2-architecture-overview]] [[firefox-process-model]].
 
@@ -155,7 +155,7 @@ This component should be treated as a primary trust anchor in the local browser 
 
 In [Figure 1](#threat-model), the diagram refers to this process as *"Browser / UI / Parent Process"*.
 
-#### Sandboxed web-content execution and rendering
+##### Sandboxed web-content execution and rendering
 
 Web content is executed within processes like Chromium **Renderer processes**, WebKit **WebContent processes**, and Firefox **Content processes**, each with distinct roles in managing untrusted input [[chromium-multiprocess-architecture]] [[webkit2-architecture-overview]] [[firefox-process-model]].
 
@@ -164,7 +164,7 @@ These types of processes are exposed to untrusted web content. For that reason, 
 In [Figure 1](#threat-model), the diagram refers to this process as *"Content / Renderer / WebContent Process"*.
 
 
-#### Network and storage
+##### Network and storage
 
 Modern web browsers also separate, or at least mediate, networking and persistent state management. In Chromium, this role is associated with the **Network Service**, per-profile `NetworkContext` objects, and `StoragePartition`. In WebKit, the **Networking process** handles network access, disk cache, and browser-managed structured site data such as Web Storage and IndexedDB. In Firefox, networking and the persistent state are distributed differently, but there is still a distinction between the two [[chromium-process-model-site-isolation]] [[webkit-storage-documentation]] [[firefox-process-model]].
 
@@ -173,7 +173,7 @@ This layer is important because it is often where cookies, caches, partitioned s
 In [Figure 1](#threat-model), the diagram refers to these as, respectively, *"Network / Socket / Networking Process"* and *"Data Store"*.
 
 
-#### Graphics, media, and Helper
+##### Graphics, media, and Helper
 
 Modern web browsers also separate GPU, codec, and other helper functionality into separate processes, also because media libraries are a common attack surface. Chromium separates the **GPU process** and additional helper-process families. Firefox separates a **GPU Process**, an **RDD Process**, a **GMP Process**, a **Utility Process**, and a **Network (Socket) Process**. WebKit also separates processes for related functionality [[inside-browser-part-1]] [[firefox-gecko-processes]] [[webkit2-architecture-overview]].
 
@@ -181,9 +181,9 @@ From a threat-modeling perspective, these helper processes are important because
 
 In [Figure 1](#threat-model), the diagram refers to this process as *"GPU / Compositor / Media helper Process"*.
 
-### Element dictionary
+#### Element dictionary
 
-#### External entities
+##### External entities
 
 <table>
   <thead>
@@ -222,7 +222,7 @@ In [Figure 1](#threat-model), the diagram refers to this process as *"GPU / Comp
   </tbody>
 </table>
 
-#### Threat Boundaries
+##### Threat Boundaries
 
 <table>
   <thead>
@@ -303,7 +303,7 @@ In [Figure 1](#threat-model), the diagram refers to this process as *"GPU / Comp
   </tbody>
 </table>
 
-#### Processes
+##### Processes
 
 <table>
   <thead>
@@ -348,7 +348,7 @@ In [Figure 1](#threat-model), the diagram refers to this process as *"GPU / Comp
   </tbody>
 </table>
 
-#### Data stores
+##### Data stores
 
 <table>
   <thead>
@@ -387,7 +387,7 @@ In [Figure 1](#threat-model), the diagram refers to this process as *"GPU / Comp
   </tbody>
 </table>
 
-#### Flows
+##### Flows
 
 <table>
   <thead>
