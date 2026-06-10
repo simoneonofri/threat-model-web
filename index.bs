@@ -460,7 +460,7 @@ This threat model analyzes the Web Platform by iterating over the layers, elemen
 ## Threat Sources
 
 *   **Browser Extensions**: Browser extensions introduce numerous security vulnerabilities despite their utility. Malicious actors exploit them for sophisticated attacks like phishing, keylogging, spying, data theft, and session hijacking. They need to be installed and configured to have the permission to access a specific origin, which increases the complexity of the attack.
-*   **Applications/Websites**: Websites can be compromised and malicious. Different attacks can be directed to compromise the user's session on the same website (e.g., stealing cookies, or generating arbitrary requests - Cross Site Request Forgery - CSRF, UI Redressing/Clickjacking), bypass the same origin and get information from different websites (i.e. _Cross-Site Leaks - XS Leaks_), or compromise the Browser itself (e.g., running arbitrary code into the browser processes to obtain control of the data inside the browser or to compromise the user device). Adversaries exploit existing browser functionality.
+*   **Applications/Websites**: Websites can be compromised and malicious. Different attacks can be directed to compromise the user's session on the same website (e.g., stealing cookies, or generating arbitrary requests - Cross Site Request Forgery - CSRF, UI Redressing/Clickjacking), bypass the same origin and get information from different websites (i.e. *Cross-Site Leaks - XS Leaks*), or compromise the Browser itself (e.g., running arbitrary code into the browser processes to obtain control of the data inside the browser or to compromise the user device). Adversaries exploit existing browser functionality.
 
 ## High-level Threat Index
 
