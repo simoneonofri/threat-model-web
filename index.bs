@@ -26,7 +26,9 @@ Boilerplate: omit issues-index, omit conformance, repository-issue-tracking off
 
 The Web Platform is a collection of open and royalty-free technologies that enable the Web. Users interact with websites through a user agent, such as a web browser or another agent acting on the user’s behalf.
 
-A website is not only a document for passive consumption by the user. It is a set of resources, such as HTML, CSS, fonts, media, scripts, and data, that are retrieved from the network and then interpreted, parsed, executed, and rendered by the user agent.
+Websites contain a series of file formats - passive content such as fonts, images, and multimedia, and active content such as HTML, JavaScript, and WebAssembly - that are transmitted from the server to the user's device and interpreted by the browser. Passive content is decoded and rendered; active content executes with the authority of its origin and constitutes the primary attack surface of the web. This distinction is useful, but not absolute: injected CSS can still become an attack surface, for example when selector matching and resource loads are used to infer or leak page state [[xsleaks-css-injection]].
+The web browser is a critical and widely used gateway for accessing the web. It is increasingly relied upon as the single most important application for work, forming the basis of browser-centric workflows.
+
 
 Websites are therefore active execution environments. A response from a web server can include executable scripts, user interface definitions, references to third-party resources, and instructions that cause the user agent to read user input, update the interface, invoke Web APIs, store or retrieve local state, interact with the underlying platform, and communicate with remote services.
 
@@ -134,3 +136,16 @@ The diagram illustrates the data flow and interactions between core browser comp
     <img src="images/DFD.svg">
     <figcaption>Data Flow Diagram (DFD)</figcaption>
 </figure>
+
+<pre class=biblio>
+{
+  "xsleaks-css-injection": {
+    "title": "CSS Injection",
+    "href": "https://xsleaks.dev/docs/attacks/css-injection/"
+  }
+}
+</pre>
+
+# Acknowledgment # {#acknowledgment}
+
+Several individuals contributed to the document. The editors especially thanks Anna Weine.
