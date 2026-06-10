@@ -13,9 +13,9 @@ Editor: Simone Onofri, w3cid 38211, W3C, simone@w3.org
 Editor: Joe Andrieu, w3cid 97261, Legendary Requirements https://legreq.com, joe@legreq.com
 Editor: Giovanni Corti, w3cid 171320, FBK https://fbk.eu, gcorti@fbk.eu
 Abstract:
-  This document describes the Threat Model for the Web and include the Web Security Model and may include the goals that have not yet been achieved across the whole web platform, but which will still be applied in reviews of new and changed specifications.
+  This document describes the Threat Model for the Web and includes the Web Security Model and may include the goals that have not yet been achieved across the whole web platform, but which will still be applied in reviews of new and changed specifications.
 Status: ED
-ED: http://w3c.github.io/threat-model-web/
+ED: https://w3c.github.io/threat-model-web/
 Markup Shorthands: markdown on, biblio yes
 Boilerplate: omit issues-index, omit conformance, repository-issue-tracking off
 </pre>
@@ -24,14 +24,14 @@ Boilerplate: omit issues-index, omit conformance, repository-issue-tracking off
 
 ## Use Scenario
 
-The Web Platform is a collection of open (royalty-free) technologies that enable the Web. As a platform, users interact with websites using their user agent (e.g., a Web Browser).
+The Web Platform is a collection of open and royalty-free technologies that enable the Web. Users interact with websites through a user agent, such as a web browser or another agent acting on the user’s behalf.
 
-Websites contain a series of file formats, such as HTML, CSS, fonts, multimedia files, and scripts, that are transmitted from the server to the user's device, interpreted, and rendered by the browser so the user can use them.
+
+Websites contain a series of file formats - passive content such as fonts, images, and multimedia, and active content such as HTML, JavaScript, and WebAssembly - that are transmitted from the server to the user's device and interpreted by the browser. Passive content is decoded and rendered; active content executes with the authority of its origin and constitutes the primary attack surface of the web. This distinction is useful, but not absolute: injected CSS can still become an attack surface, for example when selector matching and resource loads are used to infer or leak page state [[xsleaks-css-injection]].
+
 The web browser is a critical and widely used gateway for accessing the web. It is increasingly relied upon as the single most important application for work, forming the basis of browser-centric workflows.
 
-However, the Web Platform presents significant security and privacy challenges for the Web Browser, which is designed to request and execute instructions from arbitrary locations on the Internet, and it must surrender considerable control to web servers to render content correctly, as it runs code from untrusted sources.
-
-Therefore, a Web Security Model—which defines the logic of web security — that can be characterized by the centrality of the concept of origin and isolation. These concepts are enshrined as part of the underlying logic in web specifications and are subsequently implemented in the various components of Web User Agents. Web browsers are a type of Web User Agent.
+Websites are therefore active execution environments. A response from a web server can include executable scripts, user interface definitions, references to third-party resources, and instructions that cause the user agent to read user input, update the interface, invoke Web APIs, store or retrieve local state, interact with the underlying platform, and communicate with remote services.
 
 This threat model analyzes the Web as a layered system. The browser is the user-agent layer through which users interact with websites; its security-relevant internal structure is modeled in the Web Browser Layer of the System Model.
 
@@ -500,6 +500,10 @@ Web browsers employ a variety of security features and protection mechanisms tha
   This section is to be written.
 </div>
 
+# Acknowledgment # {#acknowledgment}
+
+Several individuals contributed to the document. The editors especially thanks Anna Weine.
+
 <pre class=biblio>
 {
   "threat-modeling-guide": {
@@ -549,6 +553,20 @@ Web browsers employ a variety of security features and protection mechanisms tha
   "firefox-gecko-processes": {
     "title": "Firefox Gecko Processes",
     "href": "https://firefox-source-docs.mozilla.org/ipc/processes.html"
+  }
+}
+</pre>
+=======
+<figure id="threat-model">
+    <img src="images/DFD.svg">
+    <figcaption>Data Flow Diagram (DFD)</figcaption>
+</figure>
+
+<pre class=biblio>
+{
+  "xsleaks-css-injection": {
+    "title": "CSS Injection",
+    "href": "https://xsleaks.dev/docs/attacks/css-injection/"
   }
 }
 </pre>
