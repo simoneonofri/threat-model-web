@@ -5,10 +5,10 @@
   <title>Threat Model for the Web</title>
   <meta content="ED" name="w3c-status">
   <link href="https://www.w3.org/StyleSheets/TR/2021/W3C-ED" rel="stylesheet">
-  <meta content="Bikeshed version 0a3d88311, updated Mon May 4 18:07:03 2026 +0000" name="generator">
+  <meta content="Bikeshed version d113b2e81, updated Tue Jun 9 14:57:55 2026 -0700" name="generator">
   <link href="https://w3c.github.io/threat-model-web/" rel="canonical">
   <link href="https://www.w3.org/2008/site/images/favicon.ico" rel="icon">
-  <meta content="d1fa50400de2e45585f01ff2ad2422adbc29e38c" name="revision">
+  <meta content="219d9aeb6b42b573ec39b138697db5312e048981" name="revision">
   <meta content="dark light" name="color-scheme">
   <link href="https://www.w3.org/StyleSheets/TR/2021/dark.css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css">
 <style>/* Boilerplate: style-autolinks */
@@ -424,7 +424,7 @@ dfn > a.self-link::before      { content: "#"; }
 </p>
    <h1 class="no-ref p-name" id="title">Threat Model for the Web</h1>
    <p id="w3c-state"><a href="https://www.w3.org/standards/types/#ED">Editor’s Draft</a>,
-    <time class="dt-updated" datetime="2026-05-22">22 May 2026</time></p>
+    <time class="dt-updated" datetime="2026-06-10">10 June 2026</time></p>
    <details open>
     <summary>More details about this document</summary>
     <div data-fill-with="spec-metadata">
@@ -474,13 +474,19 @@ dfn > a.self-link::before      { content: "#"; }
         <li><a href="#main-web-browser-components"><span class="secno">1.9.1</span> <span class="content">Main Web Browser Components</span></a>
        </ol>
      </ol>
+    <li><a href="#acknowledgment"><span class="secno">2</span> <span class="content">Acknowledgment</span></a>
+    <li>
+     <a href="#references"><span class="secno"></span> <span class="content">References</span></a>
+     <ol class="toc">
+      <li><a href="#informative"><span class="secno"></span> <span class="content">Non-Normative References</span></a>
+     </ol>
    </ol>
   </nav>
   <main>
    <h2 class="heading settled" data-level="1" id="what-are-we-building"><span class="secno">1. </span><span class="content">What are we building?</span><a class="self-link" href="#what-are-we-building"></a></h2>
    <h3 class="heading settled" data-level="1.1" id="use-scenario"><span class="secno">1.1. </span><span class="content">Use Scenario</span><a class="self-link" href="#use-scenario"></a></h3>
    <p>The Web Platform is a collection of open (royalty-free) technologies that enable the Web. As a platform, users interact with websites using their user agent (e.g., a Web Browser).</p>
-   <p>Websites contain a series of file formats, such as HTML, CSS, fonts, multimedia files, and scripts, that are transmitted from the server to the user’s device, interpreted, and rendered by the browser so the user can use them.
+   <p>Websites contain a series of file formats - passive content such as fonts, images, and multimedia, and active content such as HTML, JavaScript, and WebAssembly - that are transmitted from the server to the user’s device and interpreted by the browser. Passive content is decoded and rendered; active content executes with the authority of its origin and constitutes the primary attack surface of the web. This distinction is useful, but not absolute: injected CSS can still become an attack surface, for example when selector matching and resource loads are used to infer or leak page state <a data-link-type="biblio" href="#biblio-xsleaks-css-injection" title="CSS Injection">[xsleaks-css-injection]</a>.
 The web browser is a critical and widely used gateway for accessing the web. It is increasingly relied upon as the single most important application for work, forming the basis of browser-centric workflows.</p>
    <p>However, the Web Platform presents significant security and privacy challenges for the Web Browser, which is designed to request and execute instructions from arbitrary locations on the Internet, and it must surrender considerable control to web servers to render content correctly, as it runs code from untrusted sources.</p>
    <p>Therefore, a Web Security Model—which defines the logic of web security — that can be characterized by the centrality of the concept of origin and isolation. These concepts are enshrined as part of the underlying logic in web specifications and are subsequently implemented in the various components of Web User Agents. Web browsers are a type of Web User Agent.</p>
@@ -632,5 +638,13 @@ The web browser is a critical and widely used gateway for accessing the web. It 
     
     <figcaption>Data Flow Diagram (DFD)</figcaption>
    </figure>
+   <h2 class="heading settled" data-level="2" id="acknowledgment"><span class="secno">2. </span><span class="content">Acknowledgment</span><a class="self-link" href="#acknowledgment"></a></h2>
+   <p>Several individuals contributed to the document. The editors especially thanks Anna Weine.</p>
   </main>
   <script src="https://www.w3.org/scripts/TR/2021/fixup.js"></script>
+  <h2 class="heading no-num no-ref settled" id="references"><span class="content">References</span><a class="self-link" href="#references"></a></h2>
+  <h3 class="heading no-num no-ref settled" id="informative"><span class="content">Non-Normative References</span><a class="self-link" href="#informative"></a></h3>
+  <dl>
+   <dt id="biblio-xsleaks-css-injection">[XSLEAKS-CSS-INJECTION]
+   <dd><a href="https://xsleaks.dev/docs/attacks/css-injection/"><cite>CSS Injection</cite></a>. URL: <a href="https://xsleaks.dev/docs/attacks/css-injection/">https://xsleaks.dev/docs/attacks/css-injection/</a>
+  </dl>
