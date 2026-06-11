@@ -8,7 +8,7 @@
   <meta content="Bikeshed version d113b2e81, updated Tue Jun 9 14:57:55 2026 -0700" name="generator">
   <link href="https://w3c.github.io/threat-model-web/" rel="canonical">
   <link href="https://www.w3.org/2008/site/images/favicon.ico" rel="icon">
-  <meta content="4c11990ec84eab9bb1ff0fd0e6268a750559af34" name="revision">
+  <meta content="0d75f5c788d8ac4d1e7925c1eca0bce30609e201" name="revision">
   <meta content="dark light" name="color-scheme">
   <link href="https://www.w3.org/StyleSheets/TR/2021/dark.css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css">
 <style>/* Boilerplate: style-autolinks */
@@ -424,7 +424,7 @@ dfn > a.self-link::before      { content: "#"; }
 </p>
    <h1 class="no-ref p-name" id="title">Threat Model for the Web</h1>
    <p id="w3c-state"><a href="https://www.w3.org/standards/types/#ED">Editor’s Draft</a>,
-    <time class="dt-updated" datetime="2026-06-10">10 June 2026</time></p>
+    <time class="dt-updated" datetime="2026-06-11">11 June 2026</time></p>
    <details open>
     <summary>More details about this document</summary>
     <div data-fill-with="spec-metadata">
@@ -461,20 +461,52 @@ dfn > a.self-link::before      { content: "#"; }
      <a href="#what-are-we-building"><span class="secno">1</span> <span class="content">What are we building?</span></a>
      <ol class="toc">
       <li><a href="#use-scenario"><span class="secno">1.1</span> <span class="content">Use Scenario</span></a>
-      <li><a href="#web-browser-components"><span class="secno">1.2</span> <span class="content">Web Browser Components</span></a>
-      <li><a href="#external-dependencies"><span class="secno">1.3</span> <span class="content">External Dependencies</span></a>
-      <li><a href="#entry-points"><span class="secno">1.4</span> <span class="content">Entry Points</span></a>
-      <li><a href="#assets"><span class="secno">1.5</span> <span class="content">Assets</span></a>
-      <li><a href="#threat-sources"><span class="secno">1.6</span> <span class="content">Threat sources</span></a>
-      <li><a href="#high-level-threats"><span class="secno">1.7</span> <span class="content">High-level Threats</span></a>
-      <li><a href="#security-features-and-invariants"><span class="secno">1.8</span> <span class="content">Security Features and Invariants</span></a>
       <li>
-       <a href="#data-flow-diagram"><span class="secno">1.9</span> <span class="content">Data Flow Diagram</span></a>
+       <a href="#system-model"><span class="secno">1.2</span> <span class="content">System Model</span></a>
        <ol class="toc">
-        <li><a href="#main-web-browser-components"><span class="secno">1.9.1</span> <span class="content">Main Web Browser Components</span></a>
+        <li><a href="#web-layer"><span class="secno">1.2.1</span> <span class="content">Web Layer</span></a>
+        <li><a href="#network-layer"><span class="secno">1.2.2</span> <span class="content">Network Layer</span></a>
+        <li>
+         <a href="#web-browser-layer"><span class="secno">1.2.3</span> <span class="content">Web Browser Layer</span></a>
+         <ol class="toc">
+          <li>
+           <a href="#architecture"><span class="secno">1.2.3.1</span> <span class="content">Architecture</span></a>
+           <ol class="toc">
+            <li><a href="#privileged-browser-process"><span class="secno">1.2.3.1.1</span> <span class="content">Privileged browser process</span></a>
+            <li><a href="#sandboxed-web-content-execution-and-rendering"><span class="secno">1.2.3.1.2</span> <span class="content">Sandboxed web-content execution and rendering</span></a>
+            <li><a href="#network-and-storage"><span class="secno">1.2.3.1.3</span> <span class="content">Network and storage</span></a>
+            <li><a href="#graphics-media-and-helper"><span class="secno">1.2.3.1.4</span> <span class="content">Graphics, media, and Helper</span></a>
+           </ol>
+          <li>
+           <a href="#element-dictionary"><span class="secno">1.2.3.2</span> <span class="content">Element dictionary</span></a>
+           <ol class="toc">
+            <li><a href="#external-entities"><span class="secno">1.2.3.2.1</span> <span class="content">External entities</span></a>
+            <li><a href="#threat-boundaries"><span class="secno">1.2.3.2.2</span> <span class="content">Threat Boundaries</span></a>
+            <li><a href="#processes"><span class="secno">1.2.3.2.3</span> <span class="content">Processes</span></a>
+            <li><a href="#data-stores"><span class="secno">1.2.3.2.4</span> <span class="content">Data stores</span></a>
+            <li><a href="#flows"><span class="secno">1.2.3.2.5</span> <span class="content">Flows</span></a>
+           </ol>
+         </ol>
+        <li><a href="#operating-system-layer"><span class="secno">1.2.4</span> <span class="content">Operating-system Layer</span></a>
        </ol>
+      <li><a href="#assumptions-and-external-dependencies"><span class="secno">1.3</span> <span class="content">Assumptions and External Dependencies</span></a>
+      <li><a href="#entry-points-and-attack-surface"><span class="secno">1.4</span> <span class="content">Entry Points and Attack Surface</span></a>
+      <li><a href="#security-properties-assets-and-invariants"><span class="secno">1.5</span> <span class="content">Security Properties, Assets, and Invariants</span></a>
      </ol>
-    <li><a href="#acknowledgment"><span class="secno">2</span> <span class="content">Acknowledgment</span></a>
+    <li>
+     <a href="#what-can-go-wrong"><span class="secno">2</span> <span class="content">What can go wrong?</span></a>
+     <ol class="toc">
+      <li><a href="#threat-analysis-method"><span class="secno">2.1</span> <span class="content">Threat Analysis Method</span></a>
+      <li><a href="#threat-sources"><span class="secno">2.2</span> <span class="content">Threat Sources</span></a>
+      <li><a href="#high-level-threat-index"><span class="secno">2.3</span> <span class="content">High-level Threat Index</span></a>
+     </ol>
+    <li>
+     <a href="#what-are-we-going-to-do-about-it"><span class="secno">3</span> <span class="content">What are we going to do about it?</span></a>
+     <ol class="toc">
+      <li><a href="#security-features-and-controls"><span class="secno">3.1</span> <span class="content">Security Features and Controls</span></a>
+     </ol>
+    <li><a href="#did-we-do-a-good-enough-job"><span class="secno">4</span> <span class="content">Did we do a good enough job?</span></a>
+    <li><a href="#acknowledgment"><span class="secno">5</span> <span class="content">Acknowledgment</span></a>
     <li>
      <a href="#references"><span class="secno"></span> <span class="content">References</span></a>
      <ol class="toc">
@@ -486,41 +518,286 @@ dfn > a.self-link::before      { content: "#"; }
    <h2 class="heading settled" data-level="1" id="what-are-we-building"><span class="secno">1. </span><span class="content">What are we building?</span><a class="self-link" href="#what-are-we-building"></a></h2>
    <h3 class="heading settled" data-level="1.1" id="use-scenario"><span class="secno">1.1. </span><span class="content">Use Scenario</span><a class="self-link" href="#use-scenario"></a></h3>
    <p>The Web Platform is a collection of open and royalty-free technologies that enable the Web. Users interact with websites through a user agent, such as a web browser or another agent acting on the user’s behalf.</p>
-   <p>Websites contain a series of file formats - passive content such as fonts, images, and multimedia, and active content such as HTML, JavaScript, and WebAssembly - that are transmitted from the server to the user’s device and interpreted by the browser. Passive content is decoded and rendered; active content executes with the authority of its origin and constitutes the primary attack surface of the web. This distinction is useful, but not absolute: injected CSS can still become an attack surface, for example when selector matching and resource loads are used to infer or leak page state <a data-link-type="biblio" href="#biblio-xsleaks-css-injection" title="CSS Injection">[xsleaks-css-injection]</a>.
-The web browser is a critical and widely used gateway for accessing the web. It is increasingly relied upon as the single most important application for work, forming the basis of browser-centric workflows.</p>
+   <p>Websites contain a series of file formats - passive content such as fonts, images, and multimedia, and active content such as HTML, JavaScript, and WebAssembly - that are transmitted from the server to the user’s device and interpreted by the browser. Passive content is decoded and rendered; active content executes with the authority of its origin and constitutes the primary attack surface of the web. This distinction is useful, but not absolute: injected CSS can still become an attack surface, for example when selector matching and resource loads are used to infer or leak page state <a data-link-type="biblio" href="#biblio-xsleaks-css-injection" title="CSS Injection">[xsleaks-css-injection]</a>.</p>
+   <p>The web browser is a critical and widely used gateway for accessing the web. It is increasingly relied upon as the single most important application for work, forming the basis of browser-centric workflows.</p>
    <p>Websites are therefore active execution environments. A response from a web server can include executable scripts, user interface definitions, references to third-party resources, and instructions that cause the user agent to read user input, update the interface, invoke Web APIs, store or retrieve local state, interact with the underlying platform, and communicate with remote services.</p>
-   <p>This changes the relevant trust boundary. The user agent is not only rendering content received from a remote server; it is mediating the execution of untrusted code within the user’s environment. That code may observe user interaction, influence what the user sees, request access to powerful APIs, interact with origin-scoped storage, and send information back to servers.</p>
-   <p>This creates a structural security and privacy challenge. User agents are designed to retrieve, process, and execute resources from arbitrary locations on the Internet, while preserving the security and privacy expectations of the user.</p>
-   <p>The Web Security Model addresses this challenge defining concepts such as origin, isolation, mediation, and controlled access to powerful capabilities. These concepts are defined in web specifications and implemented across the different components of user agents.</p>
-   <p>Web browsers are the most common type of Web User Agent. In some cases, automated or AI-enabled agents may also retrieve, process, or act upon web resources on behalf of the user. However, this threat model focuses on the browser as the primary Web User Agent and as the main enforcement point for the Web Security Model. For this reason, this threat model analyzes the Web Platform by abstracting the structure and security-relevant components of a baseline Web User Agent model.</p>
-   <h3 class="heading settled" data-level="1.2" id="web-browser-components"><span class="secno">1.2. </span><span class="content">Web Browser Components</span><a class="self-link" href="#web-browser-components"></a></h3>
-   <p>Main components of a Web Browser:</p>
+   <p>This threat model analyzes the Web as a layered system. The browser is the user-agent layer through which users interact with websites; its security-relevant internal structure is modeled in the Web Browser Layer of the System Model.</p>
+   <h3 class="heading settled" data-level="1.2" id="system-model"><span class="secno">1.2. </span><span class="content">System Model</span><a class="self-link" href="#system-model"></a></h3>
+   <p>This system model is a high-level layered diagram of the security-relevant interaction space between web content, the network, the browser, and the lower operating-system and device services on which the browser depends. It is useful because it makes visible where security decisions are made, where browser-managed state resides, and which boundaries are crossed when untrusted web content reaches privileged mediation, network services, persistent storage, or operating-system capabilities <a data-link-type="biblio" href="#biblio-threat-modeling-guide" title="Threat Modeling Guide">[threat-modeling-guide]</a>.</p>
    <ul>
     <li data-md>
-     <p><strong>Browser Kernel</strong>: This component interacts with the operating system, manages persistent resources like the cookie and password databases, handles window management, and includes networking capabilities. The Browser Kernel is also responsible for managing multiple instances of the Rendering Engine and implements a security policy for how sandboxed rendering engines can interact with the operating system.</p>
+     <p><strong>Web layer</strong>: contains mutually distrusting origins and web resources, separated by web and origin boundaries.</p>
     <li data-md>
-     <p><strong>Rendering Engine</strong>: is an essential component in the browser ecosystem. It converts data, such as HTML and images, often in combination with CSS, into a graphical format for presentation to the user on the screen. There are also non-HTML document types (e.g., plaintext files, bitmap images, audio and video, XML-based documents, SVG...)</p>
+     <p><strong>Network layer</strong>: represents the local network, Internet, name resolution, transport protocols, and network infrastructure used to fetch remote content.</p>
     <li data-md>
-     <p><strong>Browser Extensions</strong>: Third-party creators develop Browser Extensions to enhance browser functionality by adding diverse features. They enable users to customize and improve their browsing experiences.</p>
+     <p><strong>Web browser layer</strong>: contains the browser-controlled processes, stores, permission and policy mediation, rendering, networking, and helper services that enforce the Web security model.</p>
     <li data-md>
-     <p><strong>Storage</strong>: Browsers offer various mechanisms for storing data locally on a user’s device, which vary in lifetime and capacity.</p>
-     <ul>
-      <li data-md>
-       <p><strong>Cookies</strong> are small files (up to 4KB) sent with each HTTP request to the server to manage sessions, track users, and personalize experiences. The <strong>Cookie Jar</strong> is the browser’s local database for storing cookie information.</p>
-      <li data-md>
-       <p><strong>localStorage</strong> allows for the persistent storage of key-value pairs accessible within the same origin, often used for non-sensitive data like user preferences or themes.</p>
-      <li data-md>
-       <p><strong>sessionStorage</strong> functions similarly to localStorage, but the data is only available for the page session duration and expires when the browser tab is closed.</p>
-      <li data-md>
-       <p><strong>IndexedDB</strong> is another mechanism that origins can use for persistent storage.</p>
-     </ul>
-    <li data-md>
-     <p><strong>JavaScript Engine/Interpreter</strong>: JavaScript is a general-purpose scripting language. It allows limited interaction with the host environment through predefined methods and properties that map to native code inside the browser.</p>
-    <li data-md>
-     <p><strong>Web APIs/Browser API</strong>: are interfaces with functionalities available to Web Developers.</p>
+     <p><strong>Operating-system layer</strong>: represents lower-layer filesystem, hardware, device APIs, downloads, and platform services that the browser may broker but does not fully control.</p>
    </ul>
-   <h3 class="heading settled" data-level="1.3" id="external-dependencies"><span class="secno">1.3. </span><span class="content">External Dependencies</span><a class="self-link" href="#external-dependencies"></a></h3>
-   <p>The web browser operates within an ecosystem that includes several external dependencies, systems, or entities it interacts with or relies upon:</p>
+   <figure id="threat-model">
+    
+    <img src="images/DFD.svg">
+    
+    <figcaption>Data Flow Diagram (DFD)</figcaption>
+   </figure>
+   <h4 class="heading settled" data-level="1.2.1" id="web-layer"><span class="secno">1.2.1. </span><span class="content">Web Layer</span><a class="self-link" href="#web-layer"></a></h4>
+   <div class="issue" id="issue-554ec5f2"><a class="self-link" href="#issue-554ec5f2"></a>
+    This section is to be written.
+  </div>
+   <h4 class="heading settled" data-level="1.2.2" id="network-layer"><span class="secno">1.2.2. </span><span class="content">Network Layer</span><a class="self-link" href="#network-layer"></a></h4>
+   <div class="issue" id="issue-554ec5f2①"><a class="self-link" href="#issue-554ec5f2①"></a>
+    This section is to be written.
+  </div>
+   <h4 class="heading settled" data-level="1.2.3" id="web-browser-layer"><span class="secno">1.2.3. </span><span class="content">Web Browser Layer</span><a class="self-link" href="#web-browser-layer"></a></h4>
+   <p>The Web Browser Layer outlines recurring architectural roles in modern web browsers.</p>
+   <p>Rather than treating the browser as a single component, as in the Minimalist Web Threat Model, this abstraction captures how a modern browser distributes responsibility across multiple processes with different privileges, different access to state, and different exposure to untrusted input. It also captures how the browser enforces the web security model, including origin- and site-based isolation strategies, and how it protects itself when processing input from external web servers <a data-link-type="biblio" href="#biblio-threat-modeling-guide" title="Threat Modeling Guide">[threat-modeling-guide]</a>.</p>
+   <p>These two concerns are related but not identical. A content process is isolated not only because web content is untrusted, but also because the browser must preserve same-origin isolation and the separation between the browser and the OS/platform. In practice, those are distinct trust boundaries, even when an implementation uses the same process architecture to support both.</p>
+   <h5 class="heading settled" data-level="1.2.3.1" id="architecture"><span class="secno">1.2.3.1. </span><span class="content">Architecture</span><a class="self-link" href="#architecture"></a></h5>
+   <p>Across Chromium, WebKit, and Firefox, the implementation details differ. Even so, a common structure emerges.</p>
+   <h6 class="heading settled" data-level="1.2.3.1.1" id="privileged-browser-process"><span class="secno">1.2.3.1.1. </span><span class="content">Privileged browser process</span><a class="self-link" href="#privileged-browser-process"></a></h6>
+   <p>Modern browsers include a high-privilege control component responsible for browser UI, navigation control, process management, policy enforcement, permission mediation, and access brokering for sensitive local resources. Chromium refers to this as the <strong>Browser process</strong>. WebKit refers to the <strong>UI process</strong>. Firefox refers to the <strong>Parent process</strong> <a data-link-type="biblio" href="#biblio-chromium-multiprocess-architecture" title="Chromium Multi-process Architecture">[chromium-multiprocess-architecture]</a> <a data-link-type="biblio" href="#biblio-webkit2-architecture-overview" title="WebKit2 architecture overview">[webkit2-architecture-overview]</a> <a data-link-type="biblio" href="#biblio-firefox-process-model" title="Firefox Process Model">[firefox-process-model]</a>.</p>
+   <p>This component should be treated as a primary trust anchor in the local browser architecture. It is where browser-managed policy is commonly enforced and where user-visible mediation typically occurs. For threat modeling purposes, this matters because the security implications of a decision depend in part on where it is made. A check performed in a privileged browser component is not equivalent to a check performed in a sandboxed content process.</p>
+   <p>In <a href="#threat-model">Figure 1</a>, the diagram refers to this process as <em>"Browser / UI / Parent Process"</em>.</p>
+   <h6 class="heading settled" data-level="1.2.3.1.2" id="sandboxed-web-content-execution-and-rendering"><span class="secno">1.2.3.1.2. </span><span class="content">Sandboxed web-content execution and rendering</span><a class="self-link" href="#sandboxed-web-content-execution-and-rendering"></a></h6>
+   <p>Web content is executed within processes like Chromium <strong>Renderer processes</strong>, WebKit <strong>WebContent processes</strong>, and Firefox <strong>Content processes</strong>, each with distinct roles in managing untrusted input <a data-link-type="biblio" href="#biblio-chromium-multiprocess-architecture" title="Chromium Multi-process Architecture">[chromium-multiprocess-architecture]</a> <a data-link-type="biblio" href="#biblio-webkit2-architecture-overview" title="WebKit2 architecture overview">[webkit2-architecture-overview]</a> <a data-link-type="biblio" href="#biblio-firefox-process-model" title="Firefox Process Model">[firefox-process-model]</a>.</p>
+   <p>These types of processes are exposed to untrusted web content. For that reason, they are modeled as execution environments that are expected to parse, interpret, and compute on untrusted input. Their value lies not in assuming that compromise is impossible, but in constraining what follows if compromise occurs. This is why the separation between privileged web browser mediation and web-content execution is one of the central trust boundaries in the web browser model. Implementations may also use origin- or site-based isolation strategies so that unrelated web content cannot interfere during normal use or following a compromise, but the exact isolation unit is browser-specific <a data-link-type="biblio" href="#biblio-chromium-process-model-site-isolation" title="Chromium Process Model and Site Isolation">[chromium-process-model-site-isolation]</a> <a data-link-type="biblio" href="#biblio-webkit-site-isolation-notes" title="WebKit Site Isolation notes">[webkit-site-isolation-notes]</a> <a data-link-type="biblio" href="#biblio-firefox-process-model" title="Firefox Process Model">[firefox-process-model]</a>.</p>
+   <p>In <a href="#threat-model">Figure 1</a>, the diagram refers to this process as <em>"Content / Renderer / WebContent Process"</em>.</p>
+   <h6 class="heading settled" data-level="1.2.3.1.3" id="network-and-storage"><span class="secno">1.2.3.1.3. </span><span class="content">Network and storage</span><a class="self-link" href="#network-and-storage"></a></h6>
+   <p>Modern web browsers also separate, or at least mediate, networking and persistent state management. In Chromium, this role is associated with the <strong>Network Service</strong>, per-profile <code>NetworkContext</code> objects, and <code>StoragePartition</code>. In WebKit, the <strong>Networking process</strong> handles network access, disk cache, and browser-managed structured site data such as Web Storage and IndexedDB. In Firefox, networking and the persistent state are distributed differently, but there is still a distinction between the two <a data-link-type="biblio" href="#biblio-chromium-process-model-site-isolation" title="Chromium Process Model and Site Isolation">[chromium-process-model-site-isolation]</a> <a data-link-type="biblio" href="#biblio-webkit-storage-documentation" title="WebKit Storage documentation">[webkit-storage-documentation]</a> <a data-link-type="biblio" href="#biblio-firefox-process-model" title="Firefox Process Model">[firefox-process-model]</a>.</p>
+   <p>This layer is important because it is often where cookies, caches, partitioned state, and site-data boundaries are enforced: if a specification affects fetching, credentials, storage access, or response handling, it is likely to interact with this layer.</p>
+   <p>In <a href="#threat-model">Figure 1</a>, the diagram refers to these as, respectively, <em>"Network / Socket / Networking Process"</em> and <em>"Data Store"</em>.</p>
+   <h6 class="heading settled" data-level="1.2.3.1.4" id="graphics-media-and-helper"><span class="secno">1.2.3.1.4. </span><span class="content">Graphics, media, and Helper</span><a class="self-link" href="#graphics-media-and-helper"></a></h6>
+   <p>Modern web browsers also separate GPU, codec, and other helper functionality into separate processes, also because media libraries are a common attack surface. Chromium separates the <strong>GPU process</strong> and additional helper-process families. Firefox separates a <strong>GPU Process</strong>, an <strong>RDD Process</strong>, a <strong>GMP Process</strong>, a <strong>Utility Process</strong>, and a <strong>Network (Socket) Process</strong>. WebKit also separates processes for related functionality <a data-link-type="biblio" href="#biblio-inside-browser-part-1" title="Chrome &quot;Inside look at modern web browser&quot; - part 1">[inside-browser-part-1]</a> <a data-link-type="biblio" href="#biblio-firefox-gecko-processes" title="Firefox Gecko Processes">[firefox-gecko-processes]</a> <a data-link-type="biblio" href="#biblio-webkit2-architecture-overview" title="WebKit2 architecture overview">[webkit2-architecture-overview]</a>.</p>
+   <p>From a threat-modeling perspective, these helper processes are important because they sit at the boundary between untrusted content and complex implementation surfaces. This is also a general implementation pattern: untrusted execution or functionality prone to crashes is separated from the privileged control path to reduce impact if faults occur.</p>
+   <p>In <a href="#threat-model">Figure 1</a>, the diagram refers to this process as <em>"GPU / Compositor / Media helper Process"</em>.</p>
+   <h5 class="heading settled" data-level="1.2.3.2" id="element-dictionary"><span class="secno">1.2.3.2. </span><span class="content">Element dictionary</span><a class="self-link" href="#element-dictionary"></a></h5>
+   <h6 class="heading settled" data-level="1.2.3.2.1" id="external-entities"><span class="secno">1.2.3.2.1. </span><span class="content">External entities</span><a class="self-link" href="#external-entities"></a></h6>
+   <table>
+    <thead>
+     <tr>
+      <th>ID
+      <th>Name
+      <th>Type
+      <th>Description
+    <tbody>
+     <tr>
+      <td>E1
+      <td>User
+      <td>External Entity
+      <td>Human operator interacting with browser UI, prompts, tabs, and rendered content.
+     <tr>
+      <td>E2
+      <td>Remote Web Origin(s)
+      <td>External Entity
+      <td>Remote servers providing HTML, CSS, JS, media, APIs, identity endpoints, and other web resources.
+     <tr>
+      <td>E3
+      <td>Underlying Network Infrastructure
+      <td>External Entity
+      <td>Physical Infrastructure, Networking protocols, Network segmentations, Localhost.
+     <tr>
+      <td>E4
+      <td>Operating System
+      <td>External Entity
+      <td>Filesystem, clipboard, camera, microphone, GPU drivers, media codecs, and related platform services outside the browser product boundary.
+   </table>
+   <h6 class="heading settled" data-level="1.2.3.2.2" id="threat-boundaries"><span class="secno">1.2.3.2.2. </span><span class="content">Threat Boundaries</span><a class="self-link" href="#threat-boundaries"></a></h6>
+   <table>
+    <thead>
+     <tr>
+      <th>ID
+      <th>Name
+      <th>Type
+      <th>Description
+    <tbody>
+     <tr>
+      <td>B1
+      <td>Web Browser Boundary
+      <td>Threat Boundary
+      <td>Separates browser-controlled elements from external entities and services.
+     <tr>
+      <td>B1.1
+      <td>Privileged Browser Process Boundary
+      <td>Threat Boundary
+      <td>Separates privileged browser mediation from sandboxed content execution.
+     <tr>
+      <td>B1.2
+      <td>Sandboxed Content Execution and Rendering Boundary
+      <td>Threat Boundary
+      <td>Separates elements responsible for executing web content under reduced privilege and isolation constraints from one another.
+     <tr>
+      <td>B1.3
+      <td>Web-Content Execution Process Boundary
+      <td>Threat Boundary
+      <td>Separates processes responsible for executing web content.
+     <tr>
+      <td>B1.4
+      <td>Helper Services Boundary
+      <td>Threat Boundary
+      <td>Separates elements with helper roles such as networking, GPU, media, or related utility functionality from the rest of the browser architecture.
+     <tr>
+      <td>B1.5
+      <td>Profile and Policy State Boundary
+      <td>Threat Boundary
+      <td>Separates browser-managed profile, session, settings, and permission metadata from the rest of the browser architecture.
+     <tr>
+      <td>B1.6
+      <td>Site State Boundary
+      <td>Threat Boundary
+      <td>Separates browser-managed cookies, HTTP cache, web storage, IndexedDB, and related site data from the rest of the browser architecture.
+     <tr>
+      <td>B1.7
+      <td>Sandboxed Privileged Content Execution Boundary
+      <td>Threat Boundary
+      <td>Separates sandboxed privileged execution context for internal pages or extensions from the rest of the browser architecture.
+     <tr>
+      <td>B1.8
+      <td>Local Network Boundary
+      <td>Threat Boundary
+      <td>Separates user's devices from the public Internet.
+     <tr>
+      <td>B1.9
+      <td>Web Boundary
+      <td>Threat Boundary
+      <td>Separates user agents from untrusted Web resources.
+     <tr>
+      <td>B1.10
+      <td>Web Origin Boundary
+      <td>Threat Boundary
+      <td>Separates each Web origin from one another.
+   </table>
+   <h6 class="heading settled" data-level="1.2.3.2.3" id="processes"><span class="secno">1.2.3.2.3. </span><span class="content">Processes</span><a class="self-link" href="#processes"></a></h6>
+   <table>
+    <thead>
+     <tr>
+      <th>ID
+      <th>Name
+      <th>Type
+      <th>Description
+    <tbody>
+     <tr>
+      <td>P1
+      <td>Browser / UI / Parent
+      <td>Process
+      <td>Chromium Browser process, WebKit UI process, Firefox Parent process. Coordinates privileged browser UI, navigation, window management, process selection, policy enforcement, permission mediation, networking access, and brokering to sensitive local resources such as profile data, cookie and password databases, and operating-system capabilities.
+     <tr>
+      <td>P2
+      <td>Content / Renderer / WebContent
+      <td>Process
+      <td>Chromium Renderer, WebKit WebContent, Firefox Content process family. Parses and renders web formats such as HTML, CSS, fonts, images, media, XML, SVG, and plaintext; runs DOM, script, workers, and the JavaScript engine; and exposes constrained Web API entry points to web content under sandboxing and origin- or site-isolation constraints.
+     <tr>
+      <td>P3
+      <td>Network / Socket / Networking
+      <td>Process
+      <td>Network mediation role. In Chromium this aligns with Network Service patterns; in WebKit with the Networking process; in Firefox with the Socket process and related browser-controlled networking responsibilities. Handles browser-mediated HTTP(S), sockets, caching-related network access, and requests for resources from arbitrary Internet locations.
+     <tr>
+      <td>P4
+      <td>GPU / compositor / media helper(s)
+      <td>Process
+      <td>GPU, compositor, codec, media, and other helper functions where separated. Converts rendered content into presentation output and isolates complex graphics or media implementation surfaces that process untrusted or attacker-controlled inputs.
+     <tr>
+      <td>P5
+      <td>Privileged extension / internal content
+      <td>Process
+      <td>Optional browser-managed privileged execution context for internal pages or extensions. Covers browser extensions and internal content that can add functionality, interact with browser or web content, and may receive elevated or origin-scoped permissions depending on installation and user or browser configuration.
+   </table>
+   <h6 class="heading settled" data-level="1.2.3.2.4" id="data-stores"><span class="secno">1.2.3.2.4. </span><span class="content">Data stores</span><a class="self-link" href="#data-stores"></a></h6>
+   <table>
+    <thead>
+     <tr>
+      <th>ID
+      <th>Name
+      <th>Type
+      <th>Description
+    <tbody>
+     <tr>
+      <td>S1
+      <td>Profile / session / policy store
+      <td>Data Store
+      <td>Preferences, profile data, browsing history, session restoration state, saved credentials or password database references, and browser-managed configuration with lifetimes and access rules controlled by the browser.
+     <tr>
+      <td>S2
+      <td>Permissions / browser metadata
+      <td>Data Store
+      <td>Site settings, grants, extension permissions, and browser-controlled permission metadata used to decide when web content or browser-managed privileged content may activate powerful features or access sensitive capabilities.
+     <tr>
+      <td>S3
+      <td>Cookies + HTTP cache
+      <td>Data Store
+      <td>Browser-managed cookie jar and cached responses. Cookies are sent with applicable HTTP requests to support sessions, personalization, and state management, and may be scoped by origin, site, profile, or partitioning rules.
+     <tr>
+      <td>S4
+      <td>Web storage / IndexedDB / service-worker data
+      <td>Data Store
+      <td>Persistent and session-scoped site data, typically origin- or partition-scoped, including localStorage, sessionStorage, IndexedDB, service-worker data, and related browser-managed storage mechanisms with different lifetime and capacity properties.
+   </table>
+   <h6 class="heading settled" data-level="1.2.3.2.5" id="flows"><span class="secno">1.2.3.2.5. </span><span class="content">Flows</span><a class="self-link" href="#flows"></a></h6>
+   <table>
+    <thead>
+     <tr>
+      <th>ID
+      <th>Name
+      <th>Type
+      <th>Description
+    <tbody>
+     <tr>
+      <td>F1
+      <td>User interaction
+      <td>Flow
+      <td>Input and output between the user and the privileged browser UI.
+     <tr>
+      <td>F2
+      <td>Navigation / frame control / IPC
+      <td>Flow
+      <td>Control flow between privileged browser logic and content execution.
+     <tr>
+      <td>F3
+      <td>Subresource fetch / network mediation
+      <td>Flow
+      <td>Content-triggered access path to browser-controlled networking.
+     <tr>
+      <td>F4
+      <td>HTTPS / DNS / remote data
+      <td>Flow
+      <td>Exchange of requests and responses with remote origins.
+     <tr>
+      <td>F5
+      <td>Display / media / compositing
+      <td>Flow
+      <td>Rendering and presentation path to graphics and media helpers.
+     <tr>
+      <td>F6
+      <td>Profile/session reads and writes
+      <td>Flow
+      <td>Privileged access path to profile-scoped browser state.
+     <tr>
+      <td>F7
+      <td>Permissions / browser policy
+      <td>Flow
+      <td>Evaluation and enforcement path for browser-managed permissions and policy.
+     <tr>
+      <td>F8
+      <td>Cookie / cache mediation
+      <td>Flow
+      <td>Access path to browser-managed cookie and caching state.
+     <tr>
+      <td>F9
+      <td>Web storage path
+      <td>Flow
+      <td>Access path to browser-managed persistent site storage.
+     <tr>
+      <td>F10
+      <td>Brokered OS access
+      <td>Flow
+      <td>Mediated access from browser-controlled components to operating-system or device services.
+   </table>
+   <p>The notation follows the W3C Threat Modeling Guide: <strong>E</strong> for external entities, <strong>P</strong> for processes, <strong>F</strong> for flows, <strong>S</strong> for data stores, <strong>C</strong> for threat containers, and <strong>B</strong> for threat boundaries <a data-link-type="biblio" href="#biblio-threat-modeling-guide" title="Threat Modeling Guide">[threat-modeling-guide]</a>.</p>
+   <h4 class="heading settled" data-level="1.2.4" id="operating-system-layer"><span class="secno">1.2.4. </span><span class="content">Operating-system Layer</span><a class="self-link" href="#operating-system-layer"></a></h4>
+   <div class="issue" id="issue-554ec5f2②"><a class="self-link" href="#issue-554ec5f2②"></a>
+    This section is to be written.
+  </div>
+   <h3 class="heading settled" data-level="1.3" id="assumptions-and-external-dependencies"><span class="secno">1.3. </span><span class="content">Assumptions and External Dependencies</span><a class="self-link" href="#assumptions-and-external-dependencies"></a></h3>
+   <p>The System Model depends on several external systems, services, and responsibilities that are outside direct browser control but affect the browser’s security posture:</p>
    <ul>
     <li data-md>
      <p><strong>Operating System (OS)</strong>: The browser runs with privileges granted by the OS, equivalent to user privileges. Browser security goals must manifest correctly between tabs, websites, and the OS. The OS provides a higher level of security against direct network connections than browsers.</p>
@@ -537,8 +814,8 @@ The web browser is a critical and widely used gateway for accessing the web. It 
     <li data-md>
      <p><strong>External Components/Systems</strong>: Any external dependency on components or systems can impact the browser’s security.</p>
    </ul>
-   <h3 class="heading settled" data-level="1.4" id="entry-points"><span class="secno">1.4. </span><span class="content">Entry Points</span><a class="self-link" href="#entry-points"></a></h3>
-   <p>Entry points are interfaces or mechanisms through which an adversary can interact with or supply data to the system. For a web browser, these include:</p>
+   <h3 class="heading settled" data-level="1.4" id="entry-points-and-attack-surface"><span class="secno">1.4. </span><span class="content">Entry Points and Attack Surface</span><a class="self-link" href="#entry-points-and-attack-surface"></a></h3>
+   <p>Entry points are read against the flows and boundaries in the System Model. They are interfaces or mechanisms through which an adversary can interact with or supply data to the system. For a web browser, these include:</p>
    <ul>
     <li data-md>
      <p><strong>The Browser UI</strong>: The user interface itself, where user input is provided. It includes also Trusted UI.</p>
@@ -555,8 +832,8 @@ The web browser is a critical and widely used gateway for accessing the web. It 
     <li data-md>
      <p><strong>Underlying Platform</strong>: Features allowing an origin to send data to the underlying platform.</p>
    </ul>
-   <h3 class="heading settled" data-level="1.5" id="assets"><span class="secno">1.5. </span><span class="content">Assets</span><a class="self-link" href="#assets"></a></h3>
-   <p>The assets that need to be protected when considering the web browser threat model are diverse and critical to user security and privacy:</p>
+   <h3 class="heading settled" data-level="1.5" id="security-properties-assets-and-invariants"><span class="secno">1.5. </span><span class="content">Security Properties, Assets, and Invariants</span><a class="self-link" href="#security-properties-assets-and-invariants"></a></h3>
+   <p>The security-relevant state, resources, and properties that need to be protected when considering the web browser threat model are diverse and critical to user security and privacy:</p>
    <ul>
     <li data-md>
      <p><strong>User Data</strong>: General user data, sensitive data, and personally identifying information.</p>
@@ -585,20 +862,46 @@ The web browser is a critical and widely used gateway for accessing the web. It 
     <li data-md>
      <p><strong>Confidential Information on Websites</strong>: Data displayed or accessible on websites.</p>
    </ul>
-   <h3 class="heading settled" data-level="1.6" id="threat-sources"><span class="secno">1.6. </span><span class="content">Threat sources</span><a class="self-link" href="#threat-sources"></a></h3>
+   <p>The following properties and invariants are used as prompts for the threat analysis:</p>
+   <ul>
+    <li data-md>
+     <p>Mutually distrusting origins remain isolated unless the platform defines an explicit, controlled communication path.</p>
+    <li data-md>
+     <p>Web content cannot directly exercise operating-system authority except through browser-mediated capabilities.</p>
+    <li data-md>
+     <p>Browser-mediated permissions are granted through browser-controlled user mediation, policy, or configuration.</p>
+    <li data-md>
+     <p>Browser-managed state is scoped according to the relevant origin, site, profile, partition, or permission boundary.</p>
+    <li data-md>
+     <p>Security-sensitive user intent is not inferred from web-controlled UI alone where browser mediation is required.</p>
+    <li data-md>
+     <p>Network, storage, rendering, and operating-system access paths preserve the boundaries shown in the System Model.</p>
+   </ul>
+   <h2 class="heading settled" data-level="2" id="what-can-go-wrong"><span class="secno">2. </span><span class="content">What can go wrong?</span><a class="self-link" href="#what-can-go-wrong"></a></h2>
+   <div class="ednote">
+  Editor’s Note: This section is incomplete.
+</div>
+   <h3 class="heading settled" data-level="2.1" id="threat-analysis-method"><span class="secno">2.1. </span><span class="content">Threat Analysis Method</span><a class="self-link" href="#threat-analysis-method"></a></h3>
+   <p>This threat model analyzes the Web Platform by iterating over the layers, elements, flows, stores, and boundaries in the System Model. For each relevant part of the model, the analysis asks what property is expected to hold, what can violate that property, who may be affected, and what harm may result. Threat sources and high-level threat families are used as prompts, but the analysis is grounded in the model above.</p>
+   <h3 class="heading settled" data-level="2.2" id="threat-sources"><span class="secno">2.2. </span><span class="content">Threat Sources</span><a class="self-link" href="#threat-sources"></a></h3>
    <ul>
     <li data-md>
      <p><strong>Browser Extensions</strong>: Browser extensions introduce numerous security vulnerabilities despite their utility. Malicious actors exploit them for sophisticated attacks like phishing, keylogging, spying, data theft, and session hijacking. They need to be installed and configured to have the permission to access a specific origin, which increases the complexity of the attack.</p>
     <li data-md>
-     <p><strong>Applications/Websites</strong>: Websites can be compromised and malicious. Different attacks can be directed to compromise the user’s session on the same website (e.g., stealing cookies, or generating arbitrary requests - Cross Site Request Forgery - CSRF, UI Redressing/Clickjacking), bypass the same origin and get information from different websites (i.e. _Cross-Site Leaks - XS Leaks_), or compromise the Browser itself (e.g., running arbitrary code into the browser processes to obtain control of the data inside the browser or to compromise the user device). Adversaries exploit existing browser functionality.</p>
+     <p><strong>Applications/Websites</strong>: Websites can be compromised and malicious. Different attacks can be directed to compromise the user’s session on the same website (e.g., stealing cookies, or generating arbitrary requests - Cross Site Request Forgery - CSRF, UI Redressing/Clickjacking), bypass the same origin and get information from different websites (i.e. <em>Cross-Site Leaks - XS Leaks</em>), or compromise the Browser itself (e.g., running arbitrary code into the browser processes to obtain control of the data inside the browser or to compromise the user device). Adversaries exploit existing browser functionality.</p>
    </ul>
-   <h3 class="heading settled" data-level="1.7" id="high-level-threats"><span class="secno">1.7. </span><span class="content">High-level Threats</span><a class="self-link" href="#high-level-threats"></a></h3>
+   <h3 class="heading settled" data-level="2.3" id="high-level-threat-index"><span class="secno">2.3. </span><span class="content">High-level Threat Index</span><a class="self-link" href="#high-level-threat-index"></a></h3>
+   <p>This is an index of salient threat families for the Web Platform threat model, not an exhaustive list.</p>
    <ul>
     <li data-md>
      <p><strong>Tracking/Privacy Loss</strong>: Fingerprinting is a method of identification of the users without their knowledge or consent. Fingerprinting touches on both privacy and security issues, has a dual significance. On the one hand, it can be used by an adversary to uniquely identify a user (a scenario normally related to privacy) i.e., allowing parties to develop user profiles or histories across different sites, often without knowledge or consent. On the other hand, it can be used to identify the type of device (a scenario normally related to security, for example for the subsequent compromise of the device). Data exposed by specifications, especially information about the underlying platform or state that persists, can contribute to fingerprinting. Some APIs can add fingerprinting surface.</p>
    </ul>
-   <h3 class="heading settled" data-level="1.8" id="security-features-and-invariants"><span class="secno">1.8. </span><span class="content">Security Features and Invariants</span><a class="self-link" href="#security-features-and-invariants"></a></h3>
-   <p>Web browsers employ a variety of security features and protection mechanisms to defend against threats:</p>
+   <h2 class="heading settled" data-level="3" id="what-are-we-going-to-do-about-it"><span class="secno">3. </span><span class="content">What are we going to do about it?</span><a class="self-link" href="#what-are-we-going-to-do-about-it"></a></h2>
+   <h3 class="heading settled" data-level="3.1" id="security-features-and-controls"><span class="secno">3.1. </span><span class="content">Security Features and Controls</span><a class="self-link" href="#security-features-and-controls"></a></h3>
+   <div class="ednote">
+  Editor’s Note: This section is incomplete.
+</div>
+   <p>Web browsers employ a variety of security features and protection mechanisms that help preserve the properties and invariants identified earlier:</p>
    <ul>
     <li data-md>
      <p><strong>Sandboxing</strong>: Sandboxing is a key mechanism for confining components like the rendering engine, restricting their access to the operating system and user files. It acts as a barrier between OS privileges and subprocess privileges.</p>
@@ -627,26 +930,50 @@ The web browser is a critical and widely used gateway for accessing the web. It 
     <li data-md>
      <p><strong>Trusted UI</strong>: Ensuring sensitive user interactions occur within browser interfaces that web content cannot easily spoof or manipulate.</p>
     <li data-md>
-     <p><strong>Permission API</strong>: Asking the user before the activation of a powerful feature</p>
+     <p><strong>Permission API</strong>: Asking for explicit user permission before activating a powerful feature.</p>
     <li data-md>
      <p><strong>Transient Activation</strong>: It is a gate, a window state that indicates a user has recently pressed a button, moved a mouse, used a menu, or performed some other user interaction. Sometimes used as a mechanism for ensuring that a web API can only function if triggered by user interaction. For example, scripts cannot arbitrarily launch a popup that requires transient activation ⁠— it must be triggered from a UI element’s event handler.</p>
    </ul>
-   <h3 class="heading settled" data-level="1.9" id="data-flow-diagram"><span class="secno">1.9. </span><span class="content">Data Flow Diagram</span><a class="self-link" href="#data-flow-diagram"></a></h3>
-   <h4 class="heading settled" data-level="1.9.1" id="main-web-browser-components"><span class="secno">1.9.1. </span><span class="content">Main Web Browser Components</span><a class="self-link" href="#main-web-browser-components"></a></h4>
-   <p>The diagram illustrates the data flow and interactions between core browser components, external entities, and specific elements like storage, extensions, and device sensors.</p>
-   <figure id="threat-model">
+   <h2 class="heading settled" data-level="4" id="did-we-do-a-good-enough-job"><span class="secno">4. </span><span class="content">Did we do a good enough job?</span><a class="self-link" href="#did-we-do-a-good-enough-job"></a></h2>
+   <div class="issue" id="issue-554ec5f2③"><a class="self-link" href="#issue-554ec5f2③"></a>
+  This section is to be written.
+</div>
+   <h2 class="heading settled" data-level="5" id="acknowledgment"><span class="secno">5. </span><span class="content">Acknowledgment</span><a class="self-link" href="#acknowledgment"></a></h2>
+   <p>Several individuals contributed to the document. The editors especially thanks Anna Weine.</p>
+   
+
+
+=======
+
+   <figure id="threat-model①">
     
     <img src="images/DFD.svg">
     
     <figcaption>Data Flow Diagram (DFD)</figcaption>
    </figure>
-   <h2 class="heading settled" data-level="2" id="acknowledgment"><span class="secno">2. </span><span class="content">Acknowledgment</span><a class="self-link" href="#acknowledgment"></a></h2>
-   <p>Several individuals contributed to the document. The editors especially thanks Anna Weine.</p>
   </main>
   <script src="https://www.w3.org/scripts/TR/2021/fixup.js"></script>
   <h2 class="heading no-num no-ref settled" id="references"><span class="content">References</span><a class="self-link" href="#references"></a></h2>
   <h3 class="heading no-num no-ref settled" id="informative"><span class="content">Non-Normative References</span><a class="self-link" href="#informative"></a></h3>
   <dl>
+   <dt id="biblio-chromium-multiprocess-architecture">[CHROMIUM-MULTIPROCESS-ARCHITECTURE]
+   <dd><a href="https://www.chromium.org/developers/design-documents/multi-process-architecture/"><cite>Chromium Multi-process Architecture</cite></a>. URL: <a href="https://www.chromium.org/developers/design-documents/multi-process-architecture/">https://www.chromium.org/developers/design-documents/multi-process-architecture/</a>
+   <dt id="biblio-chromium-process-model-site-isolation">[CHROMIUM-PROCESS-MODEL-SITE-ISOLATION]
+   <dd><a href="https://chromium.googlesource.com/chromium/src/+/main/docs/process_model_and_site_isolation.md"><cite>Chromium Process Model and Site Isolation</cite></a>. URL: <a href="https://chromium.googlesource.com/chromium/src/+/main/docs/process_model_and_site_isolation.md">https://chromium.googlesource.com/chromium/src/+/main/docs/process_model_and_site_isolation.md</a>
+   <dt id="biblio-firefox-gecko-processes">[FIREFOX-GECKO-PROCESSES]
+   <dd><a href="https://firefox-source-docs.mozilla.org/ipc/processes.html"><cite>Firefox Gecko Processes</cite></a>. URL: <a href="https://firefox-source-docs.mozilla.org/ipc/processes.html">https://firefox-source-docs.mozilla.org/ipc/processes.html</a>
+   <dt id="biblio-firefox-process-model">[FIREFOX-PROCESS-MODEL]
+   <dd><a href="https://firefox-source-docs.mozilla.org/dom/ipc/process_model.html"><cite>Firefox Process Model</cite></a>. URL: <a href="https://firefox-source-docs.mozilla.org/dom/ipc/process_model.html">https://firefox-source-docs.mozilla.org/dom/ipc/process_model.html</a>
+   <dt id="biblio-inside-browser-part-1">[INSIDE-BROWSER-PART-1]
+   <dd><a href="https://developer.chrome.com/blog/inside-browser-part1"><cite>Chrome "Inside look at modern web browser" - part 1</cite></a>. URL: <a href="https://developer.chrome.com/blog/inside-browser-part1">https://developer.chrome.com/blog/inside-browser-part1</a>
+   <dt id="biblio-threat-modeling-guide">[THREAT-MODELING-GUIDE]
+   <dd><a href="https://www.w3.org/TR/threat-modeling-guide/"><cite>Threat Modeling Guide</cite></a>. URL: <a href="https://www.w3.org/TR/threat-modeling-guide/">https://www.w3.org/TR/threat-modeling-guide/</a>
+   <dt id="biblio-webkit-site-isolation-notes">[WEBKIT-SITE-ISOLATION-NOTES]
+   <dd><a href="https://docs.webkit.org/Deep%20Dive/SiteIsolation.html"><cite>WebKit Site Isolation notes</cite></a>. URL: <a href="https://docs.webkit.org/Deep%20Dive/SiteIsolation.html">https://docs.webkit.org/Deep%20Dive/SiteIsolation.html</a>
+   <dt id="biblio-webkit-storage-documentation">[WEBKIT-STORAGE-DOCUMENTATION]
+   <dd><a href="https://docs.webkit.org/Deep%20Dive/Architecture/Storage.html"><cite>WebKit Storage documentation</cite></a>. URL: <a href="https://docs.webkit.org/Deep%20Dive/Architecture/Storage.html">https://docs.webkit.org/Deep%20Dive/Architecture/Storage.html</a>
+   <dt id="biblio-webkit2-architecture-overview">[WEBKIT2-ARCHITECTURE-OVERVIEW]
+   <dd><a href="https://docs.webkit.org/Deep%20Dive/Architecture/WebKit2.html"><cite>WebKit2 architecture overview</cite></a>. URL: <a href="https://docs.webkit.org/Deep%20Dive/Architecture/WebKit2.html">https://docs.webkit.org/Deep%20Dive/Architecture/WebKit2.html</a>
    <dt id="biblio-xsleaks-css-injection">[XSLEAKS-CSS-INJECTION]
    <dd><a href="https://xsleaks.dev/docs/attacks/css-injection/"><cite>CSS Injection</cite></a>. URL: <a href="https://xsleaks.dev/docs/attacks/css-injection/">https://xsleaks.dev/docs/attacks/css-injection/</a>
   </dl>
