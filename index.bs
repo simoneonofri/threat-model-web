@@ -9,6 +9,10 @@ Shortname: threat-model-web
 Level: none
 Mailing List: public-security@w3.org
 Mailing List Archives: https://lists.w3.org/Archives/Public/public-security/
+Repository: w3c/threat-model-web
+Issue Tracking: GitHub https://github.com/w3c/threat-model-web/issues
+Mailing List: public-security@w3.org
+Mailing List Archives: https://lists.w3.org/Archives/Public/public-security/
 Indent: 2
 Editor: Simone Onofri, w3cid 38211, W3C https://w3.org/, simone@w3.org
 Editor: Joe Andrieu, w3cid 97261, Legendary Requirements https://legreq.com, joe@legreq.com
