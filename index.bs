@@ -7,8 +7,6 @@ ED: https://w3c.github.io/threat-model-web/
 TR: https://w3.org/TR/threat-model-web/
 Shortname: threat-model-web
 Level: none
-Mailing List: public-security@w3.org
-Mailing List Archives: https://lists.w3.org/Archives/Public/public-security/
 Repository: w3c/threat-model-web
 Issue Tracking: GitHub https://github.com/w3c/threat-model-web/issues
 Mailing List: public-security@w3.org
