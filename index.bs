@@ -566,11 +566,6 @@ Several individuals contributed to the document. The editors especially thanks A
   }
 }
 </pre>
-=======
-<figure id="threat-model">
-    <img src="images/DFD.svg">
-    <figcaption>Data Flow Diagram (DFD)</figcaption>
-</figure>
 
 <pre class=biblio>
 {
