@@ -3,6 +3,7 @@ Title: Threat Model for the Web
 Status: ED
 Org: W3C
 Group: securityig
+ED: https://w3c.github.io/threat-model-web/
 TR: https://w3.org/TR/threat-model-web/
 Shortname: threat-model-web
 Level: none
@@ -14,8 +15,13 @@ Editor: Joe Andrieu, w3cid 97261, Legendary Requirements https://legreq.com, joe
 Editor: Giovanni Corti, w3cid 171320, FBK https://fbk.eu, gcorti@fbk.eu
 Abstract:
   This document describes the Threat Model for the Web and includes the Web Security Model and may include the goals that have not yet been achieved across the whole web platform, but which will still be applied in reviews of new and changed specifications.
-Status: ED
-ED: https://w3c.github.io/threat-model-web/
+  <p><em>This section describes the status of this document at the time of its publication. A list of current W3C publications and the latest revision of this technical report can be found in the <a href="https://www.w3.org/TR/">W3C standards and drafts index</a>.</em></p>
+  <p>This Group Note Draft is endorsed by the Security Interest Group, but is not endorsed by W3C itself nor its Members.</p>
+  <p>To provide feedback regarding this specification, the preferred method is using GitHub. It is free to create a GitHub account to file issues. A list of issues filed as well as archives of previous mailing list <a id="public-name" href="mailto:public-security@w3.org">public-security@w3.org</a> (<a href="https://lists.w3.org/Archives/Public/public-security/">archive</a>) discussions are publicly available.</p>         
+  <p>This document was published by the <a href="https://www.w3.org/groups/ig/security">Security Interest Group</a> as a Group Note Draft using the <a href="https://www.w3.org/policies/process/20250818/#recs-and-notes">Note track</a>. </p><p>Group Draft Notes are not endorsed by <abbr title="World Wide Web Consortium">W3C</abbr> nor its Members.</p>
+  <p>This is a draft document and may be updated, replaced, or obsoleted by other documents at any time. It is inappropriate to cite this document as other than a work in progress.</p>
+  <p data-deliverer="49310"> The <a href="https://www.w3.org/policies/patent-policy/"><abbr title="World Wide Web Consortium">W3C</abbr> Patent Policy</a> does not carry any licensing requirements or commitments on this document.</p>
+  <p>This document is governed by the <a id="w3c_process_revision" href="https://www.w3.org/policies/process/20250818/">18 August 2025 <abbr title="World Wide Web Consortium">W3C</abbr> Process Document</a>.
 Markup Shorthands: markdown on, biblio yes
 Boilerplate: omit issues-index, omit conformance, repository-issue-tracking off
 </pre>
