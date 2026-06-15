@@ -45,7 +45,7 @@ Because of this complexity, this document does not attempt to define a single, e
 The High-Level Web Threat model is the most abstract model in this document. It treats the user agent as as a single process and describes only the main elements, flows and boundaries to reason at very high-level.
 
 <figure id="dfd0-web-platform">
-  <img src="images/high-level-web.svg" alt="A minimal data-flow diagram for the Web Platform" />
+  <img src="images/high-level-web.svg" width="1120" height="720" alt="A minimal data-flow diagram for the Web Platform">
   <figcaption>
     High-Level Web Platform Model.
   </figcaption>
@@ -181,6 +181,11 @@ That level stops being sufficient when the design or the review depends on where
 
 The Web Browser Threat Model outlines recurring architectural roles in modern web browsers.
 
+<figure id="threat-model">
+  <img src="images/DFD.svg" width="3405" height="5456" alt="Data-flow diagram for the Web Browser Threat Model">
+  <figcaption>Web Browser Threat Model.</figcaption>
+</figure>
+
 Rather than treating the browser as a single component, as in the Minimalist Web Threat Model, this abstraction captures how a modern browser distributes responsibility across multiple processes with different privileges, different access to state, and different exposure to untrusted input. It also captures how the browser enforces the web security model, including origin- and site-based isolation strategies, and how it protects itself when processing input from external web servers [[threat-modeling-guide]].
 
 These two concerns are related but not identical. A content process is isolated not only because web content is untrusted, but also because the browser must preserve same-origin isolation and the separation between the browser and the OS/platform. In practice, those are distinct trust boundaries, even when an implementation uses the same process architecture to support both.
@@ -193,7 +198,7 @@ Modern browsers include a high-privilege control component responsible for brows
 
 This component should be treated as a primary trust anchor in the local browser architecture. It is where browser-managed policy is commonly enforced and where user-visible mediation typically occurs. For threat modeling purposes, this matters because the security implications of a decision depend in part on where it is made. A check performed in a privileged browser component is not equivalent to a check performed in a sandboxed content process.
 
-In [Figure 1](#threat-model), the diagram refers to this process as *"Browser / UI / Parent Process"*.
+In [the Web Browser Threat Model diagram](#threat-model), the diagram refers to this process as *"Browser / UI / Parent Process"*.
 
 ### Sandboxed web-content execution and rendering
 
@@ -201,7 +206,7 @@ Web content is executed within processes like Chromium **Renderer processes**, W
 
 These types of processes are exposed to untrusted web content. For that reason, they are modeled as execution environments that are expected to parse, interpret, and compute on untrusted input. Their value lies not in assuming that compromise is impossible, but in constraining what follows if compromise occurs. This is why the separation between privileged web browser mediation and web-content execution is one of the central trust boundaries in the web browser model. Implementations may also use origin- or site-based isolation strategies so that unrelated web content cannot interfere during normal use or following a compromise, but the exact isolation unit is browser-specific [[chromium-process-model-site-isolation]] [[webkit-site-isolation-notes]] [[firefox-process-model]].
 
-In [Figure 1](#threat-model), the diagram refers to this process as *"Content / Renderer / WebContent Process"*.
+In [the Web Browser Threat Model diagram](#threat-model), the diagram refers to this process as *"Content / Renderer / WebContent Process"*.
 
 
 ### Network and storage
@@ -210,7 +215,7 @@ Modern web browsers also separate, or at least mediate, networking and persisten
 
 This layer is important because it is often where cookies, caches, partitioned state, and site-data boundaries are enforced: if a specification affects fetching, credentials, storage access, or response handling, it is likely to interact with this layer.
 
-In [Figure 1](#threat-model), the diagram refers to these as, respectively, *"Network / Socket / Networking Process"* and *"Data Store"*.
+In [the Web Browser Threat Model diagram](#threat-model), the diagram refers to these as, respectively, *"Network / Socket / Networking Process"* and *"Data Store"*.
 
 
 ### Graphics, media, and Helper
@@ -219,7 +224,7 @@ Modern web browsers also separate GPU, codec, and other helper functionality int
 
 From a threat-modeling perspective, these helper processes are important because they sit at the boundary between untrusted content and complex implementation surfaces. This is also a general implementation pattern: untrusted execution or functionality prone to crashes is separated from the privileged control path to reduce impact if faults occur.
 
-In [Figure 1](#threat-model), the diagram refers to this process as *"GPU / Compositor / Media helper Process"*.
+In [the Web Browser Threat Model diagram](#threat-model), the diagram refers to this process as *"GPU / Compositor / Media helper Process"*.
 
 ### Element dictionary
 
@@ -662,18 +667,12 @@ Several individuals contributed to the document. The editors especially thanks A
     "title": "Firefox Gecko Processes",
     "href": "https://firefox-source-docs.mozilla.org/ipc/processes.html"
   },
-  { 
   "shostack-threat-modeling": { 
     "title": "Threat Modeling: Designing for Security", 
     "href": "https://shostack.org/books/threat-modeling-book",
     "authors": ["Adam Shostack"], 
     "date": "2014" 
-  } 
-}
-</pre>
-
-<pre class=biblio>
-{
+  },
   "xsleaks-css-injection": {
     "title": "CSS Injection",
     "href": "https://xsleaks.dev/docs/attacks/css-injection/"
