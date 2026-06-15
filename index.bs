@@ -45,7 +45,7 @@ Because of this complexity, this document does not attempt to define a single, e
 The High-Level Web Threat model is the most abstract model in this document. It treats the user agent as as a single process and describes only the main elements, flows and boundaries to reason at very high-level.
 
 <figure id="dfd0-web-platform">
-  <img src="images/high-level-web.svg" width="1120" height="720" alt="A minimal data-flow diagram for the Web Platform">
+  <img src="images/MinimalistBrowserDFD.drawio.svg" width="1120" height="720" alt="A minimal data-flow diagram for the Web Platform">
   <figcaption>
     High-Level Web Platform Model.
   </figcaption>
