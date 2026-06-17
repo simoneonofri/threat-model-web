@@ -36,7 +36,7 @@ The Web Platform is a collection of open and royalty-free technologies that enab
 
 Websites contain a series of file formats - passive content such as fonts, images, and multimedia, and active content such as HTML, JavaScript, and WebAssembly - that are transmitted from the server to the user's device and interpreted by the web browser. Passive content is decoded and rendered; active content executes with the authority of its origin and constitutes the primary attack surface of the web. This distinction is useful, but not absolute: injected CSS can still become an attack surface, for example when selector matching and resource loads are used to infer or leak page state [[xsleaks-css-injection]].
 
-Websites are therefore provides active execution content. A response from a web server can include executable scripts, user interface definitions, references to third-party resources, and instructions that cause the user agent to read user input, update the interface, invoke Web APIs, store or retrieve local state, interact with the underlying platform, and communicate with remote services, this is why the web browser is a critical player in this context: it executes on the user's device code from untrusted and network-accessed websites.
+Websites are therefore active execution environments. A response from a web server can include executable scripts, user interface definitions, references to third-party resources, and instructions that cause the user agent to read user input, update the interface, invoke Web APIs, store or retrieve local state, interact with the underlying platform, and communicate with remote services, this is why the web browser is a critical player in this context: it executes on the user's device code from untrusted and network-accessed websites.
 
 Because of this complexity, this document does not attempt to define a single, exhaustive threat model for the Web. As the Web is a layered and evolving ecosystem, a single model would either be too abstract to guide development and review work, or too detailed to remain readable and useful. This follows the practical framing in Shostack's threat modeling work: models are abstractions used to reason about what is being built and what can go wrong, and different models can be useful at different levels of fidelity [[shostack-threat-modeling]]. This document therefore acts as a collection of related threat models.
 
@@ -45,7 +45,7 @@ Because of this complexity, this document does not attempt to define a single, e
 The High-Level Web Threat model is the most abstract model in this document. It treats the user agent as as a single process and describes only the main elements, flows and boundaries to reason at very high-level.
 
 <figure id="dfd0-web-platform">
-  <img src="images/MinimalistBrowserDFD.drawio.svg" width="1120" height="720" alt="A minimal data-flow diagram for the Web Platform">
+  <img src="images/high-level-web.svg" width="1120" height="720" alt="A minimal data-flow diagram for the Web Platform">
   <figcaption>
     High-Level Web Platform Model.
   </figcaption>
