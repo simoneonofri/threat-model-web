@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="720" viewBox="0 0 1120 720" role="img" aria-labelledby="title desc">
+  <title id="title">High-Level Web Platform Model</title>
+  <desc id="desc">A high-level data-flow diagram showing the user, remote web origins, network infrastructure, the user agent, browser-managed state, and the operating system or device platform.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#333" />
+    </marker>
+    <style>
+      text { font-family: Arial, Helvetica, sans-serif; fill: #111; }
+      .box { fill: #fff; stroke: #333; stroke-width: 2.5; }
+      .boundary { fill: none; stroke: #d33; stroke-width: 3; stroke-dasharray: 10 8; }
+      .flow { fill: none; stroke: #333; stroke-width: 2.5; marker-end: url(#arrow); }
+      .label { font-size: 24px; font-weight: 700; }
+      .small { font-size: 17px; }
+      .tag { font-size: 16px; font-weight: 700; fill: #d33; }
+    </style>
+  </defs>
+
+  <rect x="300" y="90" width="520" height="480" rx="18" class="boundary" />
+  <text x="318" y="125" class="tag">B0 User Agent Boundary</text>
+
+  <rect x="430" y="225" width="260" height="150" rx="14" class="box" />
+  <text x="560" y="287" text-anchor="middle" class="label">P0</text>
+  <text x="560" y="320" text-anchor="middle" class="small">User Agent / Web Browser</text>
+
+  <rect x="75" y="250" width="160" height="100" rx="12" class="box" />
+  <text x="155" y="292" text-anchor="middle" class="label">E0</text>
+  <text x="155" y="323" text-anchor="middle" class="small">User</text>
+
+  <rect x="850" y="105" width="195" height="110" rx="12" class="box" />
+  <text x="947" y="150" text-anchor="middle" class="label">E1</text>
+  <text x="947" y="181" text-anchor="middle" class="small">Remote Web Origins</text>
+
+  <rect x="850" y="270" width="195" height="110" rx="12" class="box" />
+  <text x="947" y="315" text-anchor="middle" class="label">E2</text>
+  <text x="947" y="346" text-anchor="middle" class="small">Network Infrastructure</text>
+
+  <rect x="850" y="455" width="195" height="115" rx="12" class="box" />
+  <text x="947" y="500" text-anchor="middle" class="label">E3</text>
+  <text x="947" y="531" text-anchor="middle" class="small">OS / Device / Platform</text>
+
+  <rect x="430" y="450" width="260" height="90" rx="12" class="box" />
+  <text x="560" y="488" text-anchor="middle" class="label">S0</text>
+  <text x="560" y="518" text-anchor="middle" class="small">Browser-managed State</text>
+
+  <path d="M 235 300 L 430 300" class="flow" />
+  <text x="315" y="285" text-anchor="middle" class="small">F0 user interaction</text>
+
+  <path d="M 850 160 C 765 160 755 238 690 270" class="flow" />
+  <text x="765" y="180" text-anchor="middle" class="small">F1 web request / response</text>
+
+  <path d="M 850 325 L 690 315" class="flow" />
+  <text x="770" y="350" text-anchor="middle" class="small">F2 subresource loads</text>
+
+  <path d="M 560 375 L 560 450" class="flow" />
+  <text x="640" y="420" class="small">F3 state access</text>
+
+  <path d="M 690 345 C 780 370 810 475 850 510" class="flow" />
+  <text x="790" y="430" text-anchor="middle" class="small">F4 brokered platform access</text>
+
+  <text x="560" y="635" text-anchor="middle" class="tag">B1 Web Origin Boundary, B2 Network Boundary, B3 State Boundary, and B4 Platform Boundary are crossed by the labeled flows.</text>
+</svg>
