@@ -613,7 +613,7 @@ Web browsers employ a variety of security features and protection mechanisms tha
   This section is to be written.
 </div>
 
-# Appendix: MITRE ATT&amp;CK Techniques
+# Appendix: MITRE ATT&amp;CK Techniques # {#mitre-attack-techniques}
 
 The [MITRE ATT&amp;CK Enterprise techniques](https://attack.mitre.org/techniques/enterprise/) can be used as prompts when analyzing attacks involving a web browser. The following list is non-exhaustive and is grouped by level for this document. Inclusion does not mean that a technique applies to every browser architecture or scenario.
 
