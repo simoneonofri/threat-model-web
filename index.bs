@@ -613,6 +613,100 @@ Web browsers employ a variety of security features and protection mechanisms tha
   This section is to be written.
 </div>
 
+# Appendix: MITRE ATT&amp;CK Techniques
+
+The [MITRE ATT&amp;CK Enterprise techniques](https://attack.mitre.org/techniques/enterprise/) can be used as prompts when analyzing attacks involving a web browser. The following list is non-exhaustive and is grouped by level for this document. Inclusion does not mean that a technique applies to every browser architecture or scenario.
+
+## Web level
+
+- T1087 Account Discovery
+- T1539 Steal Web Session Cookie
+- T1059 Command and Scripting Interpreter
+- T1550 Use Alternate Authentication Material
+- T1595 Active Scanning
+- T1071 Application Layer Protocol
+- T1110 Brute Force
+- T1659 Content Injection
+- T1491 Defacement
+- T1592 Gather Victim Host Information
+- T1596 Search Open Technical Databases
+- T1594 Search Victim-Owned Websites
+- T1133 External Remote Services
+- T1484 Domain or Tenant Policy Modification
+- T1189 Drive-by Compromise
+- T1667 Email Bombing
+- T1114 Email Collection
+- T1684.002 Email Spoofing
+- T1499 Endpoint Denial of Service
+- T1567 Exfiltration Over Web Service
+- T1190 Exploit Public-Facing Application
+- T1212 Exploitation for Credential Access
+- T1657 Financial Theft
+- T1187 Forced Authentication
+- T1606 Forge Web Credentials
+- T1684.001 Impersonation
+- T1201 Password Policy Discovery
+- T1566 Phishing
+- T1598 Phishing for Information
+- T1593 Search Open Websites/Domains
+- T1681 Search Threat Vendor Data
+- T1505 Server Software Component
+- T1528 Steal Application Access Token
+- T1204 User Execution
+- T1078 Valid Accounts
+- T1102 Web Service
+- T1211 Exploitation for Stealth
+- T1203 Exploitation for Client Execution
+
+## Network level
+
+- T1557 Adversary-in-the-Middle
+- T1071 Application Layer Protocol
+- T1132 Data Encoding
+- T1001 Data Obfuscation
+- T1573 Encrypted Channel
+- T1041 Exfiltration Over C2 Channel
+- T1048 Exfiltration Over Alternative Protocol
+- T1011 Exfiltration Over Other Network Medium
+- T1008 Fallback Channels
+- T1592 Gather Victim Host Information
+- T1589 Gather Victim Identity Information
+- T1590 Gather Victim Network Information
+- T1591 Gather Victim Org Information
+- T1665 Hide Infrastructure
+- T1105 Ingress Tool Transfer
+- T1056 Input Capture
+- T1036 Masquerading
+- T1111 Multi-Factor Authentication Interception
+- T1104 Multi-Stage Channels
+- T1599 Network Boundary Bridging
+- T1498 Network Denial of Service
+- T1046 Network Service Discovery
+- T1040 Network Sniffing
+- T1095 Non-Application Layer Protocol
+- T1571 Non-Standard Port
+- T1027 Obfuscated Files or Information
+- T1588 Obtain Capabilities
+- T1572 Protocol Tunneling
+- T1090 Proxy
+- T1563 Remote Service Session Hijacking
+- T1021 Remote Services
+- T1018 Remote System Discovery
+- T1496 Resource Hijacking
+- T1669 Wi-Fi Networks
+- T1565 Data Manipulation
+- T1600 Weaken Encryption
+
+## Web browser level
+
+- T1559 Inter-Process Communication
+- T1176 Software Extensions
+- T1056 Input Capture
+
+## Origin level
+
+- T1068 Exploitation for Privilege Escalation
+
 # Acknowledgment # {#acknowledgment}
 
 Several individuals contributed to the document. The editors especially thanks Anna Weine.
